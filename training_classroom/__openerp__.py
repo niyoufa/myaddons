@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "ExerciseBook",
+    'name': "training_classroom",
 
     'summary': """
         Short (1 phrase/line) summary of the module's purpose, used as
@@ -24,8 +24,9 @@
 
     # always loaded
     'data': [
-        # 'security/ir.model.access.csv'
-        # 'views.xml',
+        'security/ir.model.access.csv',
+        'classroom_views.xml',
+        'lesson_views.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
