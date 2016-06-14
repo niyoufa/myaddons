@@ -1,23 +1,23 @@
 <openerp>
     <data>
         <!--  -->
-        <!--   <record id="object0" model="exercise_book.exercise_book"> -->
+        <!--   <record id="object0" model="schoolwork.schoolwork"> -->
         <!--     <field name="name">Object 0</field> -->
         <!--   </record> -->
         <!--  -->
-        <!--   <record id="object1" model="exercise_book.exercise_book"> -->
+        <!--   <record id="object1" model="schoolwork.schoolwork"> -->
         <!--     <field name="name">Object 1</field> -->
         <!--   </record> -->
         <!--  -->
-        <!--   <record id="object2" model="exercise_book.exercise_book"> -->
+        <!--   <record id="object2" model="schoolwork.schoolwork"> -->
         <!--     <field name="name">Object 2</field> -->
         <!--   </record> -->
         <!--  -->
-        <!--   <record id="object3" model="exercise_book.exercise_book"> -->
+        <!--   <record id="object3" model="schoolwork.schoolwork"> -->
         <!--     <field name="name">Object 3</field> -->
         <!--   </record> -->
         <!--  -->
-        <!--   <record id="object4" model="exercise_book.exercise_book"> -->
+        <!--   <record id="object4" model="schoolwork.schoolwork"> -->
         <!--     <field name="name">Object 4</field> -->
         <!--   </record> -->
         <!--  -->
