@@ -1,22 +1,21 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "schoolwork",
+    'name': "作业本",
 
     'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
+        作业本后台管理系统""",
 
     'description': """
-        Long description of module's purpose
+        作业本后台管理系统，用于管理作业本网站和app的用户，资源，课程，作业等资源。
     """,
 
-    'author': "Your Company",
+    'author': "Youfa Ni",
     'website': "http://www.yourcompany.com",
 
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/master/openerp/addons/base/module/module_data.xml
     # for the full list
-    'category': 'Uncategorized',
+    'category': '教育',
     'version': '0.1',
 
     # any module necessary for this one to work correctly
@@ -24,8 +23,14 @@
 
     # always loaded
     'data': [
+        'security/schoolwork_security.xml',
         # 'security/ir.model.access.csv',
-        'templates.xml',
+        # 'templates.xml',
+        'views/schoolwork_view.xml',
+        'views/schoolwork_school.xml',
+        'views/schoolwork_student.xml',
+        'views/schoolwork_teacher.xml',
+
     ],
     # only loaded in demonstration mode
     'demo': [
