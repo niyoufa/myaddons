@@ -11,10 +11,20 @@ class school(osv.osv):
 
     _columns = {}
 
+    def print_a(self,*args,**kwargs):
+        import pdb
+        pdb.set_trace()
+        print "a"
+        print args
+
+    def print_b(self,*args,**kwargs):
+        print "b"
+        print args
+
 class student(osv.osv):
     _name = "res.partner"
     _inherit = "res.partner"
-    _description = "学生"
+    _description = u"学生"
     _columns = {
         "number":fields.char("工号"),
         'partner_type':fields.char('partner_type'),

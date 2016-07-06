@@ -26,6 +26,7 @@
         'security/schoolwork_security.xml',
         # 'security/ir.model.access.csv',
         # 'templates.xml',
+        'workflows/workflow_school.xml',
         'views/schoolwork_view.xml',
         'views/schoolwork_school.xml',
         'views/schoolwork_student.xml',

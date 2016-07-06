@@ -1,2 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_schoolwork_schoolwork,schoolwork.schoolwork,model_schoolwork_schoolwork,,1,0,0,0
+access_schoolwork_school,schoolwork.school,model_res_company,group_schoolwork_school_access,1,1,0,0
+access_schoolwork_student,schoolwork.student,model_res_partner,group_schoolwork_student_access,1,1,0,0
