@@ -34,6 +34,6 @@
     </record>
     
     <!--定义菜单-->
-    <menuitem id="menu_item_student" name="学生" parent="menu_custom" action="action_student"/>
+    <menuitem id="menu_item_student" name="学生" parent="menu_infrastructure" action="action_student" sequence="1"/>
  </data>
 </openerp>

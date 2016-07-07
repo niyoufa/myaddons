@@ -27,8 +27,6 @@
         <field name="act_from" ref="activity_a"/>
         <field name="signal">school</field>
         <field name="act_to" ref="activity_b"/>
-        <field name="signal">school</field>
-        <field name="act_from" ref="activity_a"/>
     </record>
  </data>
 </openerp>

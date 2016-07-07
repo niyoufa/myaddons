@@ -31,6 +31,8 @@
         'views/schoolwork_school.xml',
         'views/schoolwork_student.xml',
         'views/schoolwork_teacher.xml',
+        'views/schoolwork_lesson.xml',
+        'views/schoolwork_classroom.xml',
 
     ],
     # only loaded in demonstration mode

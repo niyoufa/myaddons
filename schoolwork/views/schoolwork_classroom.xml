@@ -1,0 +1,84 @@
+<openerp>
+ <data>
+
+    <!-- classroom -->
+
+    <!--定义表单视图-->
+    <record model="ir.ui.view" id="classroom_form_view">
+        <field name="name">教室表单</field>
+        <field name="type">form</field>
+        <field name="model">schoolwork.classroom</field>
+        <field name="arch" type="xml">
+            <form string="教室">
+                <header>
+                    <button string="当前状态" name="%(schoolwork.action_current_lesson)d" type="action" attrs="{'invisible':[('state','=', False)]}"/>
+                    <button string="提示面板" name="%(schoolwork.action_test)d" type="action" />
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only" string="教室名称"/>
+                        <h1>
+                            <field name="name" string="教室名称"/>
+                        </h1>
+                        <div name="options_active">
+                            <field name="state" class="oe_inline"/>
+                            <label for="state" string="正在使用" readonly="1"/>
+                        </div>
+                    </div>
+                    <group>
+                        <group col="4">
+                                 <field name="number" string="编号" />
+                                 <field name="school_id" string="学校" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="教师">
+                                <field name="teacher" colspan="4" />
+                        </page>
+                        <page string="课程表">
+                                <field name="sc_course_schedule" colspan="4" />
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--定义列表视图-->
+    <record model="ir.ui.view" id="classroom_tree_view">
+        <field name="name">教室列表</field>
+        <field name="type">tree</field>
+        <field name="model">schoolwork.classroom</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="number" string="编号" />
+                <field name="name" string="名称"/>
+                <field name="school_id" string="学校" />
+            </tree>
+        </field>
+    </record>
+
+    <!--定义视图动作-->
+    <record model="ir.actions.act_window"  id="action_classroom">
+        <field name="name">教室</field>
+        <field name="res_model">schoolwork.classroom</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="classroom_tree_view"></field>
+    </record>
+
+        <!--查看当前状态动作-->
+    <record model="ir.actions.act_window"  id="action_view_base_module_update">
+        <field name="name">课</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">schoolwork.lesson</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="schoolwork.lesson_form_view"/>
+        <field name="target">new</field>
+    </record>
+
+    <!--定义菜单-->
+    <menuitem id="menu_item_classroom" name="教室" parent="menu_infrastructure" action="action_classroom" sequence="3" />
+ </data>
+</openerp>
