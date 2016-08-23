@@ -36,7 +36,7 @@ class teacher(osv.osv):
     _description = u"老师"
     _columns = {
         "number":fields.char("工号"),
-        "classroom_id":fields.many2one("schoolwork.classroom","classroom"),
+        #"classroom_id":fields.many2one("schoolwork.classroom","classroom"),
     }
 
 # class classroom(osv.osv):
