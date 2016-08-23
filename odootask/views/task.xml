@@ -17,6 +17,7 @@
             <field name="model">odootask.task</field>
             <field name="arch" type="xml">
                 <tree>
+                    <field name="number" string="编号"/>
                     <field name="name" string="名称"/>
                     <field name="category_id" string="捐赠单位"/>
                     <field name="state" string="状态"/>
@@ -29,16 +30,17 @@
             <field name="model">odootask.task</field>
             <field name="arch" type="xml">
                 <form>
-                    <hearder>
-                        <button string="Approve" name="approve" type="workflow" states="confirmed"/>
-                        <button string="Refuse" name="draft" type="workflow" states="confirmed"/>
-                    </hearder>
+                    <!--<hearder>-->
+                        <!--<button string="Approve" name="approve" type="workflow" states="confirmed"/>-->
+                        <!--<button string="Refuse" name="draft" type="workflow" states="confirmed"/>-->
+                    <!--</hearder>-->
                     <sheet>
                         <h1>
-                            <!--<label string="Borrow Order" />-->
-                            <field name="name"/>
+                            <label string="编号" />
+                            <field name="number" string="编号"/>
                         </h1>
                         <group>
+                            <field name="name" string="名称"/>
                             <field name="category_id" string="捐赠单位"/>
                             <field name="state" string="状态"/>
                         </group>

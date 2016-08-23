@@ -7,6 +7,7 @@ class Task(models.Model):
     _inherit = "mail.thread"
     _name = "odootask.task"
 
+    number = fields.Char()
     name = fields.Char()
 
     close_date = fields.Date()
