@@ -1,3 +1,4 @@
+#coding=utf-8
 from openerp import models, fields, api, _
 
 
@@ -15,8 +16,7 @@ class Task(models.Model):
     comment_ids = fields.One2many("odootask.task_comment", "task_id")
     applier_ids = fields.Many2many("res.users")
     state = fields.Selection(
-        [("draft", "Draft"), ("confirmed", "Confirmed"), ("approved", "Approved"), ("applying", "Applying"),
-         ("applied", "Applied"), ("done", "Done"), ("cancel", "Cancelled")], default="draft")
+        [("confirmed", "等待入库"),("approved","确认收入"), ("done", "完成发放"), ("draft", "取消收入")], default="confirmed")
 
     @api.one
     def apply(self, applier_id):

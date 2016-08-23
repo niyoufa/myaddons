@@ -129,3 +129,4 @@ class TaskController(openerp.http.Controller):
                     return "post comment ok"
             except Exception as e:
                 pass
+

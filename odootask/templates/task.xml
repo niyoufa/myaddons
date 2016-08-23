@@ -14,14 +14,14 @@
                         <li>
                             <a t-attf-href="/tasks/?k={{key_work or ''}}&amp;p={{page-1}}&amp;c={{category_id or ''}}"
                                aria-label="Previous">
-                                <span aria-hidden="true">&lt;</span>
+                                <span aria-hidden="true">上一页</span>
                             </a>
                         </li>
                     </t>
                     <t t-if="page &lt;= 0">
                         <li class="disabled">
                             <a t-attf-href="" aria-label="Previous">
-                                <span aria-hidden="true">&lt;</span>
+                                <span aria-hidden="true">上一页</span>
                             </a>
                         </li>
                     </t>
@@ -35,7 +35,7 @@
                     <t t-if="page &gt;= page_count-1">
                         <li class="disabled">
                             <a t-attf-href="" aria-label="Next">
-                                <span aria-hidden="true">&gt;</span>
+                                <span aria-hidden="true">下一页</span>
                             </a>
                         </li>
                     </t>
@@ -43,7 +43,7 @@
                         <li>
                             <a t-attf-href="/tasks/?k={{key_work or ''}}&amp;p={{page+1}}&amp;c={{category_id or ''}}"
                                aria-label="Next">
-                                <span aria-hidden="true">&gt;</span>
+                                <span aria-hidden="true">下一页</span>
                             </a>
                         </li>
                     </t>
@@ -75,43 +75,51 @@
                             <!--排序和发布新任务-->
                             <div class="row">
                                 <p>
-                                    <div class="col-md-3">
+                                    <div class="col-md-6">
                                         <!-- 排序方式选择 -->
                                         排序方式
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-default dropdown-toggle"
-                                                    data-toggle="dropdown" aria-haspopup="true"
-                                                    aria-expanded="false">
-                                                发布时间
-                                                <span class="caret"></span>
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                <li>
-                                                    <a href="#">发布时间 近->远</a>
-                                                </li>
-                                                <li role="separator" class="divider"></li>
-                                                <li>
-                                                    <a href="#">报酬 高->低</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">报酬 低->高</a>
-                                                </li>
-                                            </ul>
-                                        </div>
+                                        <!--<div class="btn-group">-->
+                                            <!--<button type="button" class="btn btn-default dropdown-toggle"-->
+                                                    <!--data-toggle="dropdown" aria-haspopup="true"-->
+                                                    <!--aria-expanded="false">-->
+                                                <!--发布时间-->
+                                                <!--<span class="caret"></span>-->
+                                            <!--</button>-->
+                                            <!--<ul class="dropdown-menu">-->
+                                                <!--<li>-->
+                                                    <!--<a href="#">发布时间 近->远</a>-->
+                                                <!--</li>-->
+                                                <!--<li role="separator" class="divider"></li>-->
+                                                <!--<li>-->
+                                                    <!--<a href="#">报酬 高->低</a>-->
+                                                <!--</li>-->
+                                                <!--<li>-->
+                                                    <!--<a href="#">报酬 低->高</a>-->
+                                                <!--</li>-->
+                                            <!--</ul>-->
+                                        <!--</div>-->
+                                        <form id="nav_item_form_search" class="navbar-form navbar-left" role="search" action="/tasks"
+                                          method="get">
+                                            <div class="form-group">
+                                                <input name="k" type="text" class="form-control" placeholder="请输入编号"/>
+                                            </div>
+                                            <button type="submit" class="btn btn-default">搜索</button>
+                                        </form>
                                     </div>
-                                    <div class="col-md-3 col-md-offset-6">
-                                        <a href="/task" target="_self" class="btn btn-primary btn-lg btn-block">
-                                            发布一个新任务
-                                        </a>
-                                    </div>
+
+                                    <!--<div class="col-md-3 col-md-offset-6">-->
+                                        <!--<a href="/task" target="_self" class="btn btn-primary btn-lg btn-block">-->
+                                            <!--发布一个新任务-->
+                                        <!--</a>-->
+                                    <!--</div>-->
                                 </p>
                             </div>
                             <!--任务分页-->
-                            <div class="row">
-                                <t t-call="odootask.tasks_pager">
+                            <!--<div class="row">-->
+                                <!--<t t-call="odootask.tasks_pager">-->
 
-                                </t>
-                            </div>
+                                <!--</t>-->
+                            <!--</div>-->
                             <!--任务列表-->
                             <div class="row">
                                 <p>

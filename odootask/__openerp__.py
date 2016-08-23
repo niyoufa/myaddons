@@ -1,11 +1,11 @@
 {
-    'name': "Odoo Task",
+    'name': "社区管理",
     'version': '1.0',
     'depends': ['base', "mail"],
-    'author': "Wangting",
+    'author': "youfaNi",
     'category': 'Category',
     'description': """
-    Description text 2
+        社区管理
     """,
     # # data files always loaded at installation
     'data': [
