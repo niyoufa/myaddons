@@ -2,25 +2,34 @@
 <openerp>
     <data>
         <act_window id="action_odoo_task" res_model="odootask.task" name="捐赠物资管理" view_mode="tree,form"/>
-        <act_window id="action_odoo_task_category" res_model="odootask.task_category" name="捐赠社区管理"
+        <act_window id="action_odoo_task_category" res_model="odootask.task_category" name="物资种类"
+                    view_mode="tree,form"/>
+        <act_window id="action_odoo_task_unit" res_model="odootask.unit" name="计量单位"
                     view_mode="tree,form"/>
 
         <menuitem id="menuitem_main" name="社区管理"></menuitem>
         <menuitem id="menuitem_tasks" parent="odootask.menuitem_main" name="捐赠活动"></menuitem>
         <menuitem id="menuitem_task" parent="odootask.menuitem_tasks" name="捐赠物资"
                   action="odootask.action_odoo_task"></menuitem>
-        <menuitem id="menuitem_task_category" parent="odootask.menuitem_tasks" name="捐赠社区"
+        <menuitem id="menuitem_task_category" parent="odootask.menuitem_tasks" name="物资种类"
                   action="odootask.action_odoo_task_category"></menuitem>
+        <menuitem id="menuitem_task_unit" parent="odootask.menuitem_tasks" name="计量单位"
+                  action="odootask.action_odoo_task_unit"></menuitem>
 
         <record id="task_view_tree" model="ir.ui.view">
             <field name="name">odoo task view tree</field>
             <field name="model">odootask.task</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="number" string="编号"/>
-                    <field name="name" string="名称"/>
-                    <field name="category_id" string="捐赠单位"/>
-                    <field name="state" string="状态"/>
+                    <field name="number" string="物资编号"/>
+                    <field name="category_id" string="物资种类"/>
+                    <field name="amount" string="规格"/>
+                    <field name="unit" string="计量单位"/>
+                    <field name="doantor_id" string="捐赠人"/>
+                    <field name="donate_time" string="捐赠时间"/>
+                    <field name="donee_id" string="受赠人"/>
+                    <field name="donee_type" string="受赠人类别"/>
+                    <field name="remark" string="备注"/>
                 </tree>
             </field>
         </record>
@@ -36,13 +45,18 @@
                     <!--</hearder>-->
                     <sheet>
                         <h1>
-                            <label string="编号" />
-                            <field name="number" string="编号"/>
+                            <label string="物资编号" />
+                            <field name="number" string="物资编号"/>
                         </h1>
                         <group>
-                            <field name="name" string="名称"/>
-                            <field name="category_id" string="捐赠单位"/>
-                            <field name="state" string="状态"/>
+                            <field name="category_id" string="物资种类"/>
+                            <field name="amount" string="规格"/>
+                            <field name="unit" string="计量单位"/>
+                            <field name="doantor_id" string="捐赠人"/>
+                            <field name="donate_time" string="捐赠时间"/>
+                            <field name="donee_id" string="受赠人"/>
+                            <field name="donee_type" string="受赠人类别"/>
+                            <field name="remark" string="备注"/>
                         </group>
                     </sheet>
                     <div class="oe_chatter">
