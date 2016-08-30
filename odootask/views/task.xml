@@ -6,15 +6,24 @@
                     view_mode="tree,form"/>
         <act_window id="action_odoo_task_unit" res_model="odootask.unit" name="计量单位"
                     view_mode="tree,form"/>
+        <act_window id="action_odoo_task_track" res_model="odootask.track" name="物资追踪"
+                    view_mode="tree,form"/>
+        <act_window id="action_odoo_task_track_type" res_model="odootask.track_type" name="追踪类型"
+                    view_mode="tree,form"/>
 
         <menuitem id="menuitem_main" name="社区管理"></menuitem>
         <menuitem id="menuitem_tasks" parent="odootask.menuitem_main" name="捐赠活动"></menuitem>
+        <menuitem id="menuitem_tracks" parent="odootask.menuitem_main" name="物资追踪"></menuitem>
         <menuitem id="menuitem_task" parent="odootask.menuitem_tasks" name="捐赠物资"
                   action="odootask.action_odoo_task"></menuitem>
         <menuitem id="menuitem_task_category" parent="odootask.menuitem_tasks" name="物资种类"
                   action="odootask.action_odoo_task_category"></menuitem>
         <menuitem id="menuitem_task_unit" parent="odootask.menuitem_tasks" name="计量单位"
                   action="odootask.action_odoo_task_unit"></menuitem>
+        <menuitem id="menuitem_task_track" parent="odootask.menuitem_tracks" name="物资追踪"
+                  action="odootask.action_odoo_task_track"></menuitem>
+        <menuitem id="menuitem_task_track_type" parent="odootask.menuitem_tracks" name="追踪类型"
+                  action="odootask.action_odoo_task_track_type"></menuitem>
 
         <record id="task_view_tree" model="ir.ui.view">
             <field name="name">odoo task view tree</field>

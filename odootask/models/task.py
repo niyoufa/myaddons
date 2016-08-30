@@ -73,3 +73,16 @@ class Unit(models.Model):
     _name = "odootask.unit"
 
     name = fields.Char(size=10)
+
+class Track(models.Model):
+    _name = "odootask.track"
+    
+    number = fields.Many2one("odootask.task")
+    type = fields.Many2one("odootask.track_type")
+    time = fields.Date()
+    desc = fields.Char(size=1000)
+
+class TrackType(models.Model):
+    _name = "odootask.track_type"
+
+    name = fields.Char(size=255)

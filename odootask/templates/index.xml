@@ -6,13 +6,28 @@
                 <t t-set="title" t-value="'首页'"/>
                 <div class="container">
                     <div class="row">
-                        <div class="jumbotron">
-                            <h1>Hello, world!</h1>
-                            <p>...</p>
-                            <p>
-                                <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-                            </p>
+                        <div class="jumbotron" style="margin:auto;">
+                            <label>类别</label>
+                            <select id="type">
+                                <option value="0">请选择类别</option>
+                                <option value="1">物资编号</option>
+                                <option value="2">志愿者编号</option>
+                            </select>
+                            <br/>
+                            <label>编号</label>
+                            <input id="number" type="text" placeholder="请输入物资/志愿者编号" />
+                            <button id="search">查询</button>
                         </div>
+                        <div class="jumbotron">
+                            <label>物资编号：100001</label>
+                            <ul>
+                                <li>2016.8.20发放物资</li>
+                                <li>2016.8.15确定物资</li>
+                                <li>2016.8.5修改物资信息</li>
+                                <li>2016.8.3收取物资</li>
+                            </ul>
+                        </div>
+
                     </div>
                 </div>
             </t>
