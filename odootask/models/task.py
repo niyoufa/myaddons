@@ -6,7 +6,7 @@ from openerp import models, fields, api, _
 class Task(models.Model):
     _inherit = "mail.thread"
     _name = "odootask.task"
-
+    
     name = fields.Char()
     close_date = fields.Date()
     description = fields.Text()
@@ -24,25 +24,7 @@ class Task(models.Model):
     donee_id = fields.Many2one("res.partner")
     donee_type = fields.Many2one("odootask.donee_type")
     remark = fields.Char(size=1000)
-
-    @api.one
-    def apply(self, applier_id):
-        self.write({"applier_ids": [(4, applier_id, 0)]})
-
-    @api.one
-    def approve(self):
-        self.state = "approved"
-        self.message_post(body=_("Approved by %s") % self.env.user.name)
-
-    @api.one
-    def draft(self, reason=""):
-        self.state = "draft"
-        self.message_post(body=_("Refused,reason:%s") % reason)
-
-    @api.one
-    def applying(self):
-        self.state = "applying"
-
+    track = fields.One2many("odootask.track","number")
 
 # odootask.task_category
 class TaskCategory(models.Model):
@@ -80,9 +62,9 @@ class Track(models.Model):
     number = fields.Many2one("odootask.task")
     type = fields.Many2one("odootask.track_type")
     time = fields.Date()
-    desc = fields.Char(size=1000)
 
 class TrackType(models.Model):
     _name = "odootask.track_type"
 
     name = fields.Char(size=255)
+    desc = fields.Text()

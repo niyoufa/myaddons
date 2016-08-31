@@ -12,16 +12,16 @@
                     view_mode="tree,form"/>
 
         <menuitem id="menuitem_main" name="社区管理"></menuitem>
+
         <menuitem id="menuitem_tasks" parent="odootask.menuitem_main" name="捐赠活动"></menuitem>
-        <menuitem id="menuitem_tracks" parent="odootask.menuitem_main" name="物资追踪"></menuitem>
         <menuitem id="menuitem_task" parent="odootask.menuitem_tasks" name="捐赠物资"
                   action="odootask.action_odoo_task"></menuitem>
-        <menuitem id="menuitem_task_category" parent="odootask.menuitem_tasks" name="物资种类"
+
+        <menuitem id="menuitem_tracks" parent="odootask.menuitem_main" name="系统设置"></menuitem>
+        <menuitem id="menuitem_task_category" parent="odootask.menuitem_tracks" name="物资种类"
                   action="odootask.action_odoo_task_category"></menuitem>
-        <menuitem id="menuitem_task_unit" parent="odootask.menuitem_tasks" name="计量单位"
+        <menuitem id="menuitem_task_unit" parent="odootask.menuitem_tracks" name="计量单位"
                   action="odootask.action_odoo_task_unit"></menuitem>
-        <menuitem id="menuitem_task_track" parent="odootask.menuitem_tracks" name="物资追踪"
-                  action="odootask.action_odoo_task_track"></menuitem>
         <menuitem id="menuitem_task_track_type" parent="odootask.menuitem_tracks" name="追踪类型"
                   action="odootask.action_odoo_task_track_type"></menuitem>
 
@@ -48,10 +48,6 @@
             <field name="model">odootask.task</field>
             <field name="arch" type="xml">
                 <form>
-                    <!--<hearder>-->
-                        <!--<button string="Approve" name="approve" type="workflow" states="confirmed"/>-->
-                        <!--<button string="Refuse" name="draft" type="workflow" states="confirmed"/>-->
-                    <!--</hearder>-->
                     <sheet>
                         <h1>
                             <label string="物资编号" />
@@ -67,6 +63,17 @@
                             <field name="donee_type" string="受赠人类别"/>
                             <field name="remark" string="备注"/>
                         </group>
+                        <notebook>
+                            <page string="物资追踪">
+                                <field name="track">
+                                <tree string="物资追踪明细" editable="bottom">
+                                    <field name="type"></field>
+                                    <field name="time"></field>
+                                </tree>
+                                </field>
+                                <div class="oe_clear"/>
+                           </page>
+                        </notebook>
                     </sheet>
                     <div class="oe_chatter">
                         <field name="message_follower_ids" widget="mail_followers"/>
