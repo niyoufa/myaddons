@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    <!--定义表单视图-->
+        <record model="ir.ui.view" id="schoolwork_student_form_view">
+            <field name="name">学生表单</field>
+            <field name="type">form</field>
+            <field name="model">student</field>
+            <field name="inherit_id" ref="res.view_partner_form"/>
+            <!-- <field name="arch" type="xml">
+                <form string="学生表单">
+                    <label for="name"/><field name="name"/>
+                    <label for="date_start"/><field name="date_start"/>
+                    <label for="total_day"/><field name="total_day"/>
+                    <label for="price"/><field name="price"/>
+                    <label for="teacher"/><field name="teacher"/>
+                    <label for="students"/><field name="students" colspan="4"/>
+                </form>
+            </field> -->
+        </record>
+        <!--定义列表视图-->
+        <record model="ir.ui.view" id="schoolwork_student_tree_view">
+            <field name="name">学生列表</field>
+            <field name="type">tree</field>
+            <field name="model">student</field>
+            <field name="inherit_id" ref="res.view_partner_tree"/>   
+            <field name="arch" type="xml">
+                <tree string="课程列表">
+                    <field name="name"/>
+                    <field name="date_start"/>
+                    <field name="teacher"/>
+                    <field name="price" sum="合计"/>
+                </tree>
+            </field>
+        </record>
+<!--定义视图动作-->
+    <record model="ir.actions.act_window"  id="action_student">
+        <field name="name">学生</field>    <!--这个字符串即课程对应列表或编辑界面的标题-->
+        <field name="res_model">student</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form,tree</field>
+        <field name="view_id" ref="schoolwork_student_tree_view"/>
+    </record>
+<!--定义菜单-->
+    <menuitem id="schoolwork_menu" name="作业本"/>
+    <menuitem id="schoolwork_user_menu" name="用户管理" parent="schoolwork_menu"/>
+    <menuitem id="schoolwork_user_student_menu" name="学生" parent="schoolwork_user_menu" action="action_student"/>
+</data>
+</openerp>
