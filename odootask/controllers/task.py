@@ -175,6 +175,7 @@ class TaskController(openerp.http.Controller):
 class GoodsController(openerp.http.Controller):
     @openerp.http.route("/search", type='http', auth="none", methods=["GET"])
     def index(self, **kwargs):
+        pdb.set_trace()
         context = dict()
         return odootask_qweb_render.render("odootask.index", context=context)
 
@@ -189,6 +190,25 @@ class GoodsController(openerp.http.Controller):
             if len(task) == 0:
                 return res
             tracks = env['odootask.track'].sudo().search_read([("id","in",task[0]["track"])])
+            res["data"]["good"] = task[0]
+            res["data"]["tracks"] = tracks
+        except Exception, e:
+            res["code"] = status.Status.ERROR
+            res["error_info"] = str(e)
+            return res
+        return res
+
+    @http.route('/good', type='http', auth="none", methods=["GET"])
+    @serialize_exception
+    def good(self, **kw):
+        res = utils.init_response_data()
+        try:
+            env = request.env
+            good_number = kw.get("good_number", "10001")
+            task = env['odootask.task'].sudo().search_read([("number", "=", good_number)])
+            if len(task) == 0:
+                return res
+            tracks = env['odootask.track'].sudo().search_read([("id", "in", task[0]["track"])],order="%s desc"%"create_date")
             res["data"]["good"] = task[0]
             res["data"]["tracks"] = tracks
         except Exception, e:
