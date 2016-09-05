@@ -2,12 +2,14 @@ import openerp
 from base import odootask_qweb_render
 from openerp.http import request
 import werkzeug.utils
+import pdb
 
 
 class Home(openerp.addons.web.controllers.main.Home):
-    @openerp.http.route('/', type='http', auth="public")  # ,
+    @openerp.http.route('/', type='http', auth="none")  # ,
     def index(self):
-        return odootask_qweb_render.render("odootask.index", context={"login_redirect": "/"})
+        self.request.render("odootask.index", {})
+        # return odootask_qweb_render.render("odootask.index", context={"login_redirect": "/"})
 
     # @openerp.http.route(auth="none")
     # def web_login(self, redirect=None, *args, **kw):

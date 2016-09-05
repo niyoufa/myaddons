@@ -109,6 +109,14 @@
             </div>
         </template>
 
+
+        <template id="good_js" name="js">
+            <script src="odootask/static/js/good.js"></script>
+        </template>
+        <template id="utils_js" name="js">
+            <script src="odootask/static/js/utils.js"></script>
+        </template>
+
         <template id="main_layout">
             &lt;!DOCTYPE html&gt;
             <html lang="zh-CN">
@@ -126,6 +134,8 @@
                     </div>
                     <!--<t t-call="odootask.main_footer"/>-->
                     <t t-call="odootask.website_assets_js"/>
+                    <t t-call="odootask.good_js"/>
+                    <t t-call="odootask.utils_js"/>
                 </body>
             </html>
         </template>
