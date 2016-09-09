@@ -21,8 +21,6 @@ import werkzeug.wrappers
 import simplejson
 import logging
 
-from dhuiaddons.dhuitask.rong import Rong
-
 _logger = logging.getLogger(__name__)
 
 def serialize_exception(f):
