@@ -173,7 +173,6 @@ class TaskController(openerp.http.Controller):
 class GoodsController(openerp.http.Controller):
     @openerp.http.route("/search", type='http', auth="none", methods=["GET"])
     def index(self, **kwargs):
-        pdb.set_trace()
         context = dict()
         return odootask_qweb_render.render("odootask.index", context=context)
 
