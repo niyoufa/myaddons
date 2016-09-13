@@ -127,7 +127,7 @@
                     </title>
                     <t t-call="odootask.website_assets_css"/>
                 </head>
-                <body>
+                <body style="background-image:url(/odootask/static/images/community.png);background-size:cover;">
                     <t t-call="odootask.main_nav"/>
                     <div name="content">
                         <t t-raw="0"/>
