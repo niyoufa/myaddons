@@ -27,7 +27,7 @@ $(function(){
             console.log("查询物资" + number);
         }
 
-        var api_server_addr = "http://127.0.0.1:20001/good" ;
+        var api_server_addr = "/good" ;
         var params = {
             "good_number":number,
         }
