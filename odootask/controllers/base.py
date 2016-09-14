@@ -1,5 +1,6 @@
 __author__ = 'wt'
 import openerp.http
+import pdb
 
 
 class OdooTaskQwebRender(object):
@@ -8,7 +9,7 @@ class OdooTaskQwebRender(object):
 
     def render(self, template, context=None):
         context = context or dict()
-        context["is_login"] = False
+        context["is_login"] = True
         context['username'] = ""
         context["is_public"] = False
         context["is_website_user"] = False

@@ -1,0 +1,28 @@
+<openerp>
+ <data>
+    <record model="ir.ui.view" id="jonthon_good_form">
+        <field name="name">产品</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='description']" position="before">
+                    <group colspan="4">
+                        <group>
+                            <field name="sku"/>
+                            <field name="box_name"/>
+                            <field name="goods_name"/>
+                            <field name="specs"/>
+                            <field name="country"/>
+                        </group>
+                        <group>
+                            <field name="favorite"/>
+                            <field name="is_new"/>
+                            <field name="sales"/>
+                            <field name="on_sale_flag"/>
+                        </group>
+                    </group>
+            </xpath>
+        </field>
+    </record>
+ </data>
+</openerp>

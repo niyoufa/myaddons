@@ -40,39 +40,38 @@
                          </div>
 
                         <div class="col-xs-9" id="page_search" style="margin-top:10px;width:100%">
-                           <select id="type" class="form-control" style="width:100%;">
+                           <select id="search_type" class="form-control" style="width:100%;">
                                <option value="1">物资编号</option>
-                                <option value="0">请选择类别</option>
                                 <option value="2">志愿者编号</option>
                             </select>
                         </div>
                         <div class="col-xs-7" style="margin-top:10px;width:77%;">
-                            <input id="number" type="text" placeholder="请输入物资/志愿者编号" class="form-control" value="100001"/>
+                            <input id="number" type="text" placeholder="请输入物资/志愿者编号" class="form-control"/>
                         </div>
                         <div class="col-xs-2" style="margin-top:10px;width:20%;">
                             <button id="search" class="btn btn-default">查询</button>
                         </div>
 
-                        <div id="page_detail" style="margin-top:20px;" class="col-xs-10">
-                            <label>物资追踪：100001</label>
-                            <ul style="margin-left: -22px;">
-                                <li>
-                                    <span>2016.8.20</span>
-                                    <p>发放物资发放物资发放物资发放物资发放物资发放物资发放物资</p>
-                                </li>
-                                <li>
-                                    <span>2016.8.20</span>
-                                    <p>发放物资</p>
-                                </li>
-                                <li>
-                                    <span>2016.8.20</span>
-                                    <p>发放物资</p>
-                                </li>
-                                <li>
-                                    <span>2016.8.20</span>
-                                    <p>发放物资</p>
-                                </li>
+                        <div id="track_detail" style="margin-top:20px;" class="col-xs-10">
+                            <label>物资追踪</label>
+                            <ul style="margin-left: -22px;" id="tracks">
                             </ul>
+                        </div>
+
+                        <div id="good_detail" style="margin-top:20px;" class="col-xs-10">
+                            <label>物资详情</label><br/>
+                            <span>物资种类:</span><span id="category_id"></span><br/>
+                            <span>规格:</span><span id="amount"></span><br/>
+                            <span>计量单位:</span><span id="unit"></span><br/>
+                            <span>捐赠人:</span><span id="doantor"></span><br/>
+                            <span>捐赠时间:</span><span id="donate_time"></span><br/>
+                            <span>受赠人:</span><span id="donee"></span><br/>
+                            <span>受赠人类别:</span><span id="donee_type"></span><br/>
+                            <span>备注:</span><span id="remark"></span><br/><br/>
+                        </div>
+
+                        <div id="search_info_tab" style="display:none;margin-top:20px;" class="col-xs-10">
+                            <p >查询不到物资信息！</p>
                         </div>
                 </div>
                 </div>
