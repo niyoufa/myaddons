@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <act_window id="action_odoo_task" res_model="odootask.task" name="捐赠物资管理" view_mode="tree,form"/>
+        <act_window id="action_odoo_task_category" res_model="odootask.task_category" name="物资种类"
+                    view_mode="tree,form"/>
+        <act_window id="action_odoo_task_unit" res_model="odootask.unit" name="计量单位"
+                    view_mode="tree,form"/>
+        <act_window id="action_odoo_task_track" res_model="odootask.track" name="物资追踪"
+                    view_mode="tree,form"/>
+        <act_window id="action_odoo_task_track_type" res_model="odootask.track_type" name="追踪类型"
+                    view_mode="tree,form"/>
+
+        <menuitem id="menuitem_main" name="社区管理"></menuitem>
+
+        <menuitem id="menuitem_tasks" parent="odootask.menuitem_main" name="捐赠活动"></menuitem>
+        <menuitem id="menuitem_task" parent="odootask.menuitem_tasks" name="捐赠物资"
+                  action="odootask.action_odoo_task"></menuitem>
+
+        <menuitem id="menuitem_tracks" parent="odootask.menuitem_main" name="系统设置"></menuitem>
+        <menuitem id="menuitem_task_category" parent="odootask.menuitem_tracks" name="物资种类"
+                  action="odootask.action_odoo_task_category"></menuitem>
+        <menuitem id="menuitem_task_unit" parent="odootask.menuitem_tracks" name="计量单位"
+                  action="odootask.action_odoo_task_unit"></menuitem>
+        <menuitem id="menuitem_task_track_type" parent="odootask.menuitem_tracks" name="追踪类型"
+                  action="odootask.action_odoo_task_track_type"></menuitem>
+
+        <record id="task_view_tree" model="ir.ui.view">
+            <field name="name">odoo task view tree</field>
+            <field name="model">odootask.task</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="number" string="物资编号"/>
+                    <field name="category_id" string="物资种类"/>
+                    <field name="amount" string="规格"/>
+                    <field name="unit" string="计量单位"/>
+                    <field name="doantor_id" string="捐赠人"/>
+                    <field name="donate_time" string="捐赠时间"/>
+                    <field name="donee_id" string="受赠人"/>
+                    <field name="donee_type" string="受赠人类别"/>
+                    <field name="remark" string="备注"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="task_view_form" model="ir.ui.view">
+            <field name="name">odoo task view form</field>
+            <field name="model">odootask.task</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <h1>
+                            <label string="物资编号" />
+                            <field name="number" string="物资编号"/>
+                        </h1>
+                        <group>
+                            <field name="category_id" string="物资种类"/>
+                            <field name="amount" string="规格"/>
+                            <field name="unit" string="计量单位"/>
+                            <field name="doantor_id" string="捐赠人"/>
+                            <field name="donate_time" string="捐赠时间"/>
+                            <field name="donee_id" string="受赠人"/>
+                            <field name="donee_type" string="受赠人类别"/>
+                            <field name="remark" string="备注"/>
+                        </group>
+                        <notebook>
+                            <page string="物资追踪">
+                                <field name="track">
+                                <tree string="物资追踪明细" editable="bottom">
+                                    <field name="type"></field>
+                                    <field name="time"></field>
+                                </tree>
+                                </field>
+                                <div class="oe_clear"/>
+                           </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,32 @@
+<openerp>
+ <data>
+
+    <!-- test workflow -->
+    <record id="test_workflow" model="workflow">
+        <field name="name">test.workflow</field>
+        <field name="osv">res.company</field>
+        <field name="create_on">True</field>
+    </record>
+      
+    <record id="activity_a" model="workflow.activity">
+        <field name="wkf_id" ref="test_workflow"/>
+        <field name="flow_start">True</field>
+        <field name="name">a</field>
+        <field name="kind">function</field>
+        <field name="action">print_a()</field>
+    </record>
+
+    <record id="activity_b" model="workflow.activity">
+        <field name="wkf_id" ref="test_workflow"/>
+        <field name="name">b</field>
+        <field name="kind">function</field>
+        <field name="action">print_b()</field>
+    </record>
+      
+    <record id="trans_a_b" model="workflow.transition">
+        <field name="act_from" ref="activity_a"/>
+        <field name="signal">school</field>
+        <field name="act_to" ref="activity_b"/>
+    </record>
+ </data>
+</openerp>

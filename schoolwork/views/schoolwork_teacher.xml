@@ -1,0 +1,39 @@
+<openerp>
+ <data>
+
+    <!-- teacher -->
+    <!--定义表单视图-->
+    <record model="ir.ui.view" id="teacher_form_view">
+        <field name="name">老师表单</field>
+        <field name="type">form</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <form></form>
+        </field>
+    </record>
+
+    <!--定义列表视图-->
+    <record model="ir.ui.view" id="teacher_tree_view">
+        <field name="name">老师列表</field>
+        <field name="type">tree</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_tree"></field>
+        <field name="arch" type="xml">
+            <tree></tree>
+        </field>
+    </record>
+
+    <!--定义视图动作-->
+    <record model="ir.actions.act_window"  id="action_teacher">
+        <field name="name">老师</field>    <!--这个字符串即课程对应列表或编辑界面的标题-->
+        <field name="res_model">res.users</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="teacher_tree_view"/>
+    </record>
+    
+    <!--定义菜单-->
+    <menuitem id="menu_item_teacher" name="老师" parent="menu_infrastructure" action="action_teacher" sequence="2"/>
+ </data>
+</openerp>

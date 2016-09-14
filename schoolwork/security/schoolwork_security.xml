@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- 应用类型 : 作业本 -->
+        <record id="category_schoolwork_root" model="ir.module.category">
+            <field name="name">作业本</field>
+        </record>
+
+        <!-- 作业本访问权限组 -->
+        <record id="group_schoolwork_access" model="res.groups">
+            <field name="name">访问权限组</field>
+            <field name="category_id" ref="category_schoolwork_root"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        </record>
+
+        <record model="ir.ui.menu" id="menu_nav_schoolwork">
+            <field name="name" >作业本</field>
+            <field name="groups_id" eval="[(6,0,[ref('group_schoolwork_access'),]),]"/>           
+            <field name="sequence">0</field>
+        </record>
+
+        <!-- 学校访问权限组 -->
+        <record id="group_schoolwork_school_access" model="res.groups">
+            <field name="name">学校访问权限</field>
+            <field name="category_id" ref="category_schoolwork_root"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        </record>
+
+        <record model="ir.rule" id="rule_schoolwork_school">
+            <field name="name">访问自己的学校</field>
+            <field name="model_id" ref="base.res_company"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">[('id',"=",user.company_id.id)]</field>
+            <field name="groups" eval="[(4,ref('group_schoolwork_school_access'))]"/>
+        </record>
+
+        <!-- 学生访问权限组 -->
+        <record id="group_schoolwork_student_access" model="res.groups">
+            <field name="name">学生访问权限</field>
+            <field name="category_id" ref="category_schoolwork_root"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        </record>
+
+        <record model="ir.rule" id="rule_schoolwork_student">
+            <field name="name">访问自己的学生</field>
+            <field name="model_id" ref="base.res_partner"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">[('user_id','!=',False),('user_id','=',user.id),('partner_type','=','student')]</field>
+                <field name="groups" eval="[(4,ref('group_schoolwork_student_access'))]"/>
+        </record>
+
+        <!-- 老师访问权限组 -->
+        <record id="group_schoolwork_teacher_access" model="res.groups">
+            <field name="name">老师访问权限</field>
+            <field name="category_id" ref="category_schoolwork_root"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        </record>
+
+        <record model="ir.ui.menu" id="menu_item_teacher">
+            <field name="name" >老师</field>
+            <field name="groups_id" eval="[(6,0,[ref('group_schoolwork_teacher_access'),]),]"/>           
+            <field name="sequence">0</field>
+        </record>
+
+    </data>
+</openerp>

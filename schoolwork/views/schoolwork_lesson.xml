@@ -1,0 +1,79 @@
+<openerp>
+ <data>
+
+    <!-- lesson -->
+    <!--定义表单视图-->
+    <record model="ir.ui.view" id="lesson_form_view">
+        <field name="name">学校表单</field>
+        <field name="type">form</field>
+        <field name="model">schoolwork.lesson</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <field name="name"/>
+                    <field name="lesson_type"/>
+                    <field name="course_type_id"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--定义列表视图-->
+    <record model="ir.ui.view" id="lesson_tree_view">
+        <field name="name">学校列表</field>
+        <field name="type">tree</field>
+        <field name="model">schoolwork.lesson</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="lesson_type"/>
+                <field name="course_type_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--定义视图动作-->
+    <record model="ir.actions.act_window"  id="action_current_lesson">
+        <field name="name">教学课</field>    <!--这个字符串即课程对应列表或编辑界面的标题-->
+        <field name="res_model">schoolwork.lesson</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="lesson_tree_view"/>
+        <field name="target">new</field>
+    </record>
+
+    <record model="ir.actions.act_window"  id="action_lesson">
+        <field name="name">教学课</field>    <!--这个字符串即课程对应列表或编辑界面的标题-->
+        <field name="res_model">schoolwork.lesson</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="lesson_tree_view"/>
+    </record>
+
+
+    <record model="ir.ui.view" id="lesson_form_test_view">
+        <field name="name">学校表单</field>
+        <field name="type">form</field>
+        <field name="model">schoolwork.lesson</field>
+        <field name="arch" type="xml">
+            <form>
+                <dev>
+                    <span>查询</span>
+                    <button name="query_current_lesson" string="查询" type="object"></button>
+                </dev>
+            </form>
+        </field>
+    </record>
+    <record model="ir.actions.act_window"  id="action_test">
+        <field name="name">action_test</field>    <!--这个字符串即课程对应列表或编辑界面的标题-->
+        <field name="res_model">schoolwork.lesson</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="lesson_form_test_view"/>
+        <field name="target">new</field>
+    </record>
+
+    <!--定义菜单-->
+    <menuitem id="menu_item_lesson" name="教学课" parent="menu_course" action="action_lesson" sequence="0"/>
+ </data>
+</openerp>

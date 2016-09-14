@@ -1,0 +1,14 @@
+<openerp>
+    <data>
+        <!--导航栏菜单-->
+        <menuitem sequence="0" id="menu_nav_schoolwork" name="作业本"/>
+        <menuitem id="menu_infrastructure" parent="menu_nav_schoolwork"
+            name="基础设施" sequence="0"/>
+        <menuitem id="menu_course" parent="menu_nav_schoolwork"
+            name="教学课程"/>
+        <menuitem id="menu_schoolwork" parent="menu_nav_schoolwork"
+            name="作业"/>
+        <menuitem id="menu_question" parent="menu_nav_schoolwork"
+            name="问题"/>
+    </data>
+</openerp>

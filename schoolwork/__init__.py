@@ -1,3 +1,4 @@
-# -*- coding: utf-8 -*-
-import controllers
-import models
+#coding=utf-8
+
+import schoolwork
+import schoolwork_classroom

@@ -1,0 +1,41 @@
+<openerp>
+ <data>
+
+    <!-- school -->
+    <!--定义表单视图-->
+    <record model="ir.ui.view" id="school_form_view">
+        <field name="name">学校表单</field>
+        <field name="type">form</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <form>
+                <button string="学校" name="school"/>
+            </form>
+        </field>
+    </record>
+
+    <!--定义列表视图-->
+    <record model="ir.ui.view" id="school_tree_view">
+        <field name="name">学校列表</field>
+        <field name="type">tree</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_tree"></field>
+        <field name="arch" type="xml">
+            <tree></tree>
+        </field>
+    </record>
+
+    <!--定义视图动作-->
+    <record model="ir.actions.act_window"  id="action_school">
+        <field name="name">学校</field>    <!--这个字符串即课程对应列表或编辑界面的标题-->
+        <field name="res_model">res.company</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="school_tree_view"/>
+    </record>
+
+    <!--定义菜单-->
+    <menuitem id="menu_item_school" name="学校" parent="menu_infrastructure" action="action_school" sequence="0"/>
+ </data>
+</openerp>
