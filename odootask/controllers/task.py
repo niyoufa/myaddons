@@ -171,29 +171,25 @@ class TaskController(openerp.http.Controller):
                 pass
 
 class GoodsController(openerp.http.Controller):
-    @openerp.http.route("/search", type='http', auth="none", methods=["GET"])
-    def index(self, **kwargs):
+    @openerp.http.route("/index.html", type='http', auth="none", methods=["GET"])
+    def index_page(self, **kwargs):
         context = dict()
         return odootask_qweb_render.render("odootask.index", context=context)
 
-    @http.route('/good', type='http',auth="none", methods=["GET"])
-    @serialize_exception
-    def good(self, **kw):
-        res = utils.init_response_data()
-        try:
-            env = request.env
-            good_number = kw.get("good_number","10001")
-            task = env['odootask.task'].sudo().search_read([("number", "=", good_number)])
-            if len(task) == 0:
-                return res
-            tracks = env['odootask.track'].sudo().search_read([("id","in",task[0]["track"])])
-            res["data"]["good"] = task[0]
-            res["data"]["tracks"] = tracks
-        except Exception, e:
-            res["code"] = status.Status.ERROR
-            res["error_info"] = str(e)
-            return res
-        return res
+    @openerp.http.route("/search.html", type='http', auth="none", methods=["GET"])
+    def search_page(self, **kwargs):
+        context = dict()
+        return odootask_qweb_render.render("odootask.search", context=context)
+
+    @openerp.http.route("/detail.html", type='http', auth="none", methods=["GET"])
+    def detail_page(self, **kwargs):
+        context = dict()
+        return odootask_qweb_render.render("odootask.detail", context=context)
+
+    @openerp.http.route("/upload.html", type='http', auth="none", methods=["GET"])
+    def upload_page(self, **kwargs):
+        context = dict()
+        return odootask_qweb_render.render("odootask.upload", context=context)
 
     @http.route('/good', type='http', auth="none", methods=["GET"])
     @serialize_exception

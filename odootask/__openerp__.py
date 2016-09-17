@@ -11,14 +11,16 @@
     'data': [
         "data/group.xml",
         "workflow/odootask_workflow.xml",
+        
         'templates/base.xml',
         'templates/index.xml',
-        'templates/task.xml',
-        "templates/about.xml",
-        "templates/team.xml",
-        "templates/user.xml",
-        "views/task.xml",
-        "templates/base_black_theme.xml"
+        'templates/search.xml',
+        'templates/detail.xml',
+        'templates/upload.xml',
+
+        'views/task.xml',
+        'views/donator.xml',
+        'views/donatee.xml',
     ],
     # # data files containing optionally loaded demonstration data
     # 'demo': [

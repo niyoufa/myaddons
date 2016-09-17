@@ -6,11 +6,19 @@
             <link rel="stylesheet" href="/odootask/static/css/bootstrap.min.css"/>
             <!-- 可选的Bootstrap主题文件（一般不用引入） -->
             <link rel="stylesheet" href="/odootask/static/css/bootstrap-theme.min.css"/>
+            <link rel="stylesheet" href="/odootask/static/css/good.css"/>
+        </template>
+
+        <template id="track_css" name="header">
+            <link rel="stylesheet" href="/odootask/static/css/track.css"/>
         </template>
 
         <template id="website_assets_js" name="header">
             <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
             <script src="/odootask/static/js/jquery.min.js"></script>
+            <script type="text/javascript" src="/odootask/static/js/jquery.ui.widget.js"></script>
+            <script type="text/javascript" src="/odootask/static/js/jquery.iframe-transport.js"></script>
+            <script type="text/javascript" src="/odootask/static/js/jquery.fileupload.js"></script>
             <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
             <script src="/odootask/static/js/bootstrap.min.js"></script>
 
@@ -21,9 +29,9 @@
             <nav class="navbar navbar-default">
                 <div class="container-fluid">
                     <!-- Brand and toggle get grouped for better mobile display -->
-                    <div class="navbar-header" style="text-align:center;width:100%;">
+                    <!-- <div class="navbar-header" style="text-align:center;width:100%;">
                         <a class="navbar-brand" href="/" style="width:100%;">社区管理</a>
-                    </div>
+                    </div> -->
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="navbar-collapse">
@@ -99,7 +107,6 @@
                     </div>
                     <!-- /.navbar-collapse -->
                 </div>
-
             </nav>
         </template>
 
@@ -109,12 +116,20 @@
             </div>
         </template>
 
-
-        <template id="good_js" name="js">
-            <script src="odootask/static/js/good.js"></script>
-        </template>
         <template id="utils_js" name="js">
             <script src="odootask/static/js/utils.js"></script>
+        </template>
+
+        <template id="index_js" name="js">
+            <script src="odootask/static/js/index.js"></script>
+        </template>
+
+        <template id="search_js" name="js">
+            <script src="odootask/static/js/search.js"></script>
+        </template>
+
+        <template id="upload_js" name="js">
+            <script src="odootask/static/js/upload.js"></script>
         </template>
 
         <template id="main_layout">
@@ -127,14 +142,13 @@
                     </title>
                     <t t-call="odootask.website_assets_css"/>
                 </head>
-                <body style="background-image:url(/odootask/static/images/community.png);background-size:cover;">
-                    <t t-call="odootask.main_nav"/>
+                <body>
+                    <!-- <t t-call="odootask.main_nav"/> -->
                     <div name="content">
                         <t t-raw="0"/>
                     </div>
                     <!--<t t-call="odootask.main_footer"/>-->
                     <t t-call="odootask.website_assets_js"/>
-                    <t t-call="odootask.good_js"/>
                     <t t-call="odootask.utils_js"/>
                 </body>
             </html>

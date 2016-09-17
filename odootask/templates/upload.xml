@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="upload" name="upload">
+            <t t-call="odootask.main_layout">
+                <t t-set="title" t-value="''"/>
+                <div class="container-fluid">
+                    <div class="row" id="detail_page">
+                        <!-- 提交捐赠信息-->
+                        <div id="good_upload_page" style="width:100%;">
+
+                            <div class="col-xs-12 good-detail-page-nav">
+                                在线捐赠
+                            </div>
+
+                            <div id="good_upload" style="margin-top:20px;" class="col-xs-12">
+                                <div class="good-upload-content">
+                                        <input type="text" placeholder="请输入手机号" class="form-control upload_item" />
+                                        <input type="text" placeholder="请输入身份证号" class="form-control upload_item" />
+                                        <input type="text" placeholder="请输入姓名" class="form-control upload_item" />
+                                        <select class="form-control upload_item">
+                                            <option value="0">请选择物资种类</option>
+                                            <option value="1">大米</option>
+                                            <option value="2">食用油</option>
+                                        </select>
+                                        <input type="text" placeholder="请输入捐赠数量" class="form-control upload_item"/>
+                                        <select class="form-control upload_item">
+                                            <option value="0">请请选择计量单位</option>
+                                            <option value="1">公斤</option>
+                                            <option value="2">袋</option>
+                                            <option value="2">斤</option>
+                                        </select>
+                                        <textarea placeholder="请添加备注" class="form-control upload_item"></textarea>
+                                        <img src="/odootask/static/images/image_upload.png" id="image_upload"  class="fileinput-button" onclick="javascript:takePhoto()" />
+                                        <input type="file"  name="files" id="take_photo" style="display:none;" />
+                                        <span id="media_content">
+                                        </span>
+                                        <button class="form-control btn btn-default upload_item" id="upload_good_info">提交</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <script>
+                            function takePhoto(){
+                                    $("#take_photo").click() ; 
+                            }
+                    </script>
+                </div>
+            </t>
+            <t t-call="odootask.track_css"/>
+            <t t-call="odootask.upload_js"/>
+        </template>
+    </data>
+</openerp>

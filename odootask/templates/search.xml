@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="search" name="search">
+            <t t-call="odootask.main_layout">
+                <t t-set="title" t-value="''"/>
+
+                <!-- 物资查询列表 -->
+                <div class="container-fluid">
+                   <div class="row" id="good_search_list_page">
+
+                        <div class="col-xs-9" style="margin-top:10px;">
+                            <input id="list_number" type="text" placeholder="请输入志愿者编号" class="form-control"/>
+                        </div>
+
+                        <div class="col-xs-3" style="margin-top:10px;">
+                            <a id="cancel_search" href="#">取消</a>
+                        </div>
+
+                   </div>
+               </div>
+
+                <div class="good-tab-list container-fluid">
+                    <div class="good-tab row">
+
+                        <div class="col-xs-4">
+                                <img src="" alt="error" class="float-left"/>
+                        </div>
+
+                        <div class="col-xs-8 tab-content">
+                            <p>
+                                捐赠人：张三
+                            </p>
+                            <p>
+                                捐赠物资 : 大米
+                            </p>
+                            <p>
+                                日期 2016-10-10
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div class="good-tab row">
+
+                        <div class="col-xs-4">
+                                <img src="" alt="error" class="float-left"/>
+                        </div>
+
+                        <div class="col-xs-8 tab-content">
+                            <p>
+                                捐赠人：张三
+                            </p>
+                            <p>
+                                捐赠物资 : 大米
+                            </p>
+                            <p>
+                                日期 2016-10-10
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+            </t>
+            <t t-call="odootask.search_js"/>
+        </template>
+    </data>
+</openerp>

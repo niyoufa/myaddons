@@ -1,0 +1,60 @@
+<openerp>
+ <data>
+
+    <!--定义表单视图-->
+    <record model="ir.ui.view" id="donator_form_view">
+        <field name="name">捐赠人表单</field>
+        <field name="type">form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='internal_notes']" position="before">
+                <page string="捐赠列表">
+                    <field name="goods">
+                        <tree string="捐赠列表" editable="bottom">
+                            <field name="number" string="物资编号"></field>
+                            <field name="category_id" string="物资类型"></field>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+    <!--定义列表视图-->
+    <record model="ir.ui.view" id="donator_tree_view">
+        <field name="name">捐赠人列表</field>
+        <field name="type">tree</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree"></field>
+        <field name="arch" type="xml">
+            <tree></tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="donator_search">
+        <field name="name">查询</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="number" string="编号"/>
+                <field name="display_name" string="姓名"/>
+                <field name="phone" string="手机号" />
+                <field name="cardid" string="身份证"/>
+            </search>
+        </field>
+      </record>
+
+    <!--定义视图动作-->
+    <record model="ir.actions.act_window"  id="action_donator">
+        <field name="name">捐赠人</field>    <!--这个字符串即课程对应列表或编辑界面的标题-->
+        <field name="res_model">res.partner</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form,tree</field>
+        <field name="view_id" ref="donator_tree_view"/>
+        <field name="domain" eval="[('partner_type','=','donator')]"/>
+        <field name="search_view_id" ref="donator_search"/>
+    </record>
+    <!--定义菜单-->
+    <menuitem id="menu_donator_item" name="捐赠人" parent="menuitem_tasks" action="action_donator"/>
+ </data>
+</openerp>

@@ -1,15 +1,17 @@
 $(function(){
     initGoodSearchPage();
-    $("#search").click(function(){
-        $("#track_detail").hide();
-        $("#good_detail").hide();
-        searchGood();
-    });
+
     function initGoodSearchPage(){
-        $("#track_detail").hide();
-        $("#good_detail").hide();
-        $("#search_info_tab").hide();
+        $("#list_number")[0].focus();
     }
+
+    $("#cancel_search").click(function(){
+        location.href = "/index.html" ;
+    });
+    $(".good-tab").click(function(){
+        location.href = "/detail.html?number=";
+    });
+
     function searchGood(){
         var search_type = $("#search_type").val();
         var number = $("#number").val();
@@ -27,7 +29,7 @@ $(function(){
             console.log("查询物资" + number);
         }
 
-        var api_server_addr = "http://127.0.0.1:20001/good" ;
+        var api_server_addr = "/good" ;
         var params = {
             "good_number":number,
         }
@@ -83,4 +85,6 @@ $(function(){
             }
         },"json");
     }
+
+
 });
