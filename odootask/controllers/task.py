@@ -1,3 +1,4 @@
+#coding=utf-8
 __author__ = 'wt'
 import openerp.http
 from openerp.http import request
@@ -5,7 +6,7 @@ from base import odootask_qweb_render
 import math
 import simplejson as json
 import pdb
-
+import datetime
 import json,pdb
 
 from openerp import http
@@ -204,6 +205,182 @@ class GoodsController(openerp.http.Controller):
             tracks = env['odootask.track'].sudo().search_read([("id", "in", task[0]["track"])],order="%s desc"%"create_date")
             res["data"]["good"] = task[0]
             res["data"]["tracks"] = tracks
+        except Exception, e:
+            res["code"] = status.Status.ERROR
+            res["error_info"] = str(e)
+            return res
+        return res
+
+    @http.route('/communitys', type='http', auth="none", methods=["GET"])
+    @serialize_exception
+    def communitys(self, **kw):
+        res = utils.init_response_data()
+        try:
+            env = request.env
+            communitys = env['odootask.community'].sudo().search_read()
+            res["data"]["communitys"] = communitys
+        except Exception, e:
+            res["code"] = status.Status.ERROR
+            res["error_info"] = str(e)
+            return res
+        return res
+
+    @http.route('/good_types', type='http', auth="none", methods=["GET"])
+    @serialize_exception
+    def good_types(self, **kw):
+        res = utils.init_response_data()
+        try:
+            env = request.env
+            good_types = env['odootask.task_category'].sudo().search_read()
+            res["data"]["good_types"] = good_types
+        except Exception, e:
+            res["code"] = status.Status.ERROR
+            res["error_info"] = str(e)
+            return res
+        return res
+
+    @http.route('/units', type='http', auth="none", methods=["GET"])
+    @serialize_exception
+    def units(self, **kw):
+        res = utils.init_response_data()
+        try:
+            env = request.env
+            units = env['odootask.unit'].sudo().search_read()
+            res["data"]["units"] = units
+        except Exception, e:
+            res["code"] = status.Status.ERROR
+            res["error_info"] = str(e)
+            return res
+        return res
+
+    @http.route('/upload', type='http', auth="none", methods=["POST"])
+    @serialize_exception
+    def upload(self, **kw):
+        res = utils.init_response_data()
+        try:
+            env = request.env
+            community_name = kw.get("community_name")
+            phone = kw.get("phone")
+            cardid = kw.get("cardid")
+            donator_name = kw.get("donator_name")
+            good_type = kw.get("good_type")
+            amount = kw.get("amount")
+            unit = kw.get("unit")
+            remark = kw.get("remark","")
+            image_path = kw.get("image_path","")
+            image_url = kw.get("image_url","")
+            state = "confirmed"
+
+            #存储捐赠人信息
+            donators = env['res.partner'].sudo().search_read(["|","&",("partner_type","=","donator")
+                ,("phone","=",phone),("cardid","=",cardid)])
+            if len(donators) > 0 :
+                donator = donators[0]
+                donaor_number =  donator.get("number","")
+                donator_obj = donator
+                donator_id = donator_obj["id"]
+            else:
+                donator = dict(
+                    display_name = donator_name,
+                    name = donator_name,
+                    partner_type = "donator",
+                    phone = phone,
+                    cardid = cardid,
+                    goods = [],
+                )
+                try:
+                    env["res.partner"].sudo().create(donator)
+                except:
+                    pass
+                donators = env['res.partner'].sudo().search_read(["|","&",("partner_type","=","donator")
+                ,("phone","=",phone),("cardid","=",cardid)])
+                donator_obj = donators[0]
+                donator_obj["number"] = "DR"  + str(donator_obj["id"]).zfill(6)
+                donator_id = donator_obj["id"]
+                env["res.partner"].sudo().write({"id":donator_id,"number":donator_obj["number"] })
+
+            community_obj = env['odootask.community'].sudo().search_read([("name","=",community_name)])
+            community_numer = community_obj[0]["number"]
+            good_type_obj = env['odootask.task_category'].sudo().search_read([("name","=",good_type)])
+            good_type_id = good_type_obj[0]["id"]
+            unit_obj = env['odootask.unit'].sudo().search_read([("name","=",unit)])
+            unit_id = unit_obj[0]["id"]
+
+            good = dict(
+                donator_id = donator_id,
+                category_id = good_type_id,
+                amount = amount,
+                unit = unit_id,
+                remark = remark,
+                image_path = image_path,
+                image_url = image_url,
+                state = state,
+            )
+            good_obj = env["odootask.task"].sudo().create(good)
+            good_obj = env["odootask.task"].sudo().search_read([("id","=",good_obj.id)])[0]
+            good_obj_update = {}
+            good_obj_update["id"] = good_obj["id"]
+            good_obj_update["number"] = "W" + "-" + community_numer  + "-"+ str(good_obj["id"]).zfill(6)
+            env["odootask.task"].sudo().write(good_obj_update)
+
+            good = env["odootask.task"].sudo().search([("id","=",good_obj["id"])])[0]
+            donator_obj["goods"].append(good)
+            env["res.partner"].sudo().write({"id":donator_id,"goods":donator_obj["goods"]})
+
+            created_goods = env['odootask.task'].sudo().search_read([("id","=",good_obj["id"])])
+            res["data"]["good"] = created_goods[0]
+        except Exception, e:
+            res["code"] = status.Status.ERROR
+            res["error_info"] = str(e)
+            return res
+        return res
+
+    @http.route('/goods', type='http', auth="none", methods=["GET"])
+    @serialize_exception
+    def goods(self, **kw):
+        res = utils.init_response_data()
+        try:
+            env = request.env
+            donator_number = kw.get("donator_number")
+            donators = env['res.partner'].sudo().search_read([("partner_type","=","donator"),("number", "=", donator_number)])
+            if len(donators) == 0:
+                goods = []
+            else:
+                donator = donators[0]
+                goods = env["odootask.task"].sudo().search_read([("donator_id","=",donator["id"])])
+                goods.sort(key=lambda obj:obj["create_date"])
+                goods.reverse()
+            res["data"]["goods"] = goods
+        except Exception, e:
+            res["code"] = status.Status.ERROR
+            res["error_info"] = str(e)
+            return res
+        return res
+
+    @http.route('/nearby_donate', type='http', auth="none", methods=["GET"])
+    @serialize_exception
+    def nearby_donate(self, **kw):
+        res = utils.init_response_data()
+        try:
+            env = request.env
+            goods = env['odootask.task'].sudo().search_read()
+            goods.sort(key=lambda obj:obj["create_date"])
+            goods.reverse()
+            goods = goods[0:5]
+            for good in goods :
+                create_date = good["create_date"]
+                date = create_date.split(" ")[0]
+                time = create_date.split(" ")[1]
+                curr_date = str(datetime.datetime.now()).split(" ")[0]
+                if date == curr_date :
+                    show_date = "今天"
+                else:
+                    show_date = date.split("-")[1] + "-"+ date.split("-")[2]
+                show_time = time.split(":")[0] +":"+ time.split(":")[1]
+                good["show_date"] = show_date
+                good["show_time"] = show_time
+
+            res["data"]["goods"] = goods
         except Exception, e:
             res["code"] = status.Status.ERROR
             res["error_info"] = str(e)

@@ -9,6 +9,8 @@
         <act_window id="action_odoo_task_track" res_model="odootask.track" name="物资追踪"
                     view_mode="tree,form"/>
         <act_window id="action_odoo_task_track_type" res_model="odootask.track_type" name="追踪类型"
+                    view_mode="tree,form"/>        
+        <act_window id="action_odoo_task_community" res_model="odootask.community" name="活动社区"
                     view_mode="tree,form"/>
 
         <menuitem id="menuitem_main" name="社区管理"></menuitem>
@@ -24,6 +26,8 @@
                   action="odootask.action_odoo_task_unit"></menuitem>
         <menuitem id="menuitem_task_track_type" parent="odootask.menuitem_tracks" name="追踪类型"
                   action="odootask.action_odoo_task_track_type"></menuitem>
+        <menuitem id="menuitem_task_community" parent="odootask.menuitem_tracks" name="活动社区"
+                  action="odootask.action_odoo_task_community"></menuitem>
 
         <record id="task_view_tree" model="ir.ui.view">
             <field name="name">odoo task view tree</field>
@@ -34,8 +38,8 @@
                     <field name="category_id" string="物资种类"/>
                     <field name="amount" string="规格"/>
                     <field name="unit" string="计量单位"/>
-                    <field name="doantor_id" string="捐赠人"/>
-                    <field name="donate_time" string="捐赠时间"/>
+                    <field name="donator_id" string="捐赠人"/>
+                    <field name="create_date" string="捐赠时间"/>
                     <field name="state" string="状态"/>
                     <field name="donee_id" string="受赠人"/>
                     <field name="donee_type" string="受赠人类别"/>
@@ -60,7 +64,7 @@
                             <field name="category_id" string="物资种类"/>
                             <field name="amount" string="规格"/>
                             <field name="unit" string="计量单位"/>
-                            <field name="doantor_id" string="捐赠人"/>
+                            <field name="donator_id" string="捐赠人"/>
                             <field name="donate_time" string="捐赠时间"/>
                             <field name="state" string="状态"/>
                             <field name="donee_id" string="受赠人"/>
@@ -94,7 +98,7 @@
                 <search>
                     <field name="number" string="编号"/>
                     <field name="category_id" string="物资种类"/>
-                    <field name="doantor_id" string="捐赠人" />
+                    <field name="donator_id" string="捐赠人" />
                     <field name="donee_id" string="受赠人"/>
                     <field name="state" string="状态"/>
                 </search>

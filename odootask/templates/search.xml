@@ -20,47 +20,7 @@
                    </div>
                </div>
 
-                <div class="good-tab-list container-fluid">
-                    <div class="good-tab row">
-
-                        <div class="col-xs-4">
-                                <img src="" alt="error" class="float-left"/>
-                        </div>
-
-                        <div class="col-xs-8 tab-content">
-                            <p>
-                                捐赠人：张三
-                            </p>
-                            <p>
-                                捐赠物资 : 大米
-                            </p>
-                            <p>
-                                日期 2016-10-10
-                            </p>
-                        </div>
-
-                    </div>
-
-                    <div class="good-tab row">
-
-                        <div class="col-xs-4">
-                                <img src="" alt="error" class="float-left"/>
-                        </div>
-
-                        <div class="col-xs-8 tab-content">
-                            <p>
-                                捐赠人：张三
-                            </p>
-                            <p>
-                                捐赠物资 : 大米
-                            </p>
-                            <p>
-                                日期 2016-10-10
-                            </p>
-                        </div>
-
-                    </div>
-
+                <div class="good-tab-list container-fluid" id="good_search_list">
                 </div>
             </t>
             <t t-call="odootask.search_js"/>

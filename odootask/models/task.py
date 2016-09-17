@@ -2,6 +2,7 @@
 
 from openerp.osv import osv,fields
 from openerp import tools, api
+import pdb
 
 #odootask.task
 class Task(osv.osv):
@@ -20,13 +21,20 @@ class Task(osv.osv):
     def _has_image(self, name, args):
         return dict((p.id, bool(p.image)) for p in self)
 
+    def write(self,cr,uid,ids,vals,context=None):
+        context = context or {}
+        if vals.has_key("id"):
+            ids = [vals["id"]]
+        res = super(Task, self).write(cr,uid,ids,vals,context=context)
+        return res
+
     _columns = {
 
         'number':fields.char('Number'),
         'category_id':fields.many2one('odootask.task_category'),
         'amount':fields.float(),
         'unit':fields.many2one("odootask.unit"),
-        'doantor_id':fields.many2one("res.partner"),
+        'donator_id':fields.many2one("res.partner"),
         'donate_time':fields.datetime("Donate Time"),
         'donee_id':fields.many2one('res.partner'),
         'donee_type':fields.many2one('odootask.donee_type'),
@@ -57,8 +65,8 @@ class Task(osv.osv):
                  "Use this field anywhere a small image is required."),
         'has_image': fields.function(_has_image, type="boolean"),
 
-        # 'image_path':fields.char("图片地址"),
-        # "image_url":fields.char("图片查询url"),
+        'image_path':fields.char("图片地址"),
+        "image_url":fields.char("图片查询url"),
 
     }
 
@@ -66,6 +74,13 @@ class Task(osv.osv):
 class GoodPartner(osv.osv):
     _name = "res.partner"
     _inherit = "res.partner"
+
+    def write(self,cr,uid,ids,vals,context=None):
+        context = context or {}
+        if vals.has_key("id"):
+            ids = [vals["id"]]
+        res = super(GoodPartner, self).write(cr,uid,ids,vals,context=context)
+        return res
 
     _columns = {
         'number':fields.char("编号"),
@@ -104,6 +119,14 @@ class Unit(osv.osv):
 
     _columns = {
         'name':fields.char('名称'),
+    }
+
+class Community(osv.osv):
+    _name = "odootask.community"
+
+    _columns = {
+        'name':fields.char('名称'),
+        'number':fields.char('编号'),
     }
 
 class Track(osv.osv):

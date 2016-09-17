@@ -53,41 +53,7 @@
                     <div class="title">
                         <span>最近捐赠</span>
                     </div>
-                    <div class="good-tab-list container-fluid">
-                        <div class="good-tab row">
-
-                            <div class="col-xs-4">
-                                    <p>今天</p>
-                                    <p>11:03</p>
-                            </div>
-
-                            <div class="col-xs-8 tab-content">
-                                <p>
-                                    捐赠人：张三
-                                </p>
-                                <p>
-                                    捐赠物资 : 大米
-                                </p>
-                            </div>
-
-                        </div>
-
-                        <div class="good-tab row">
-                                <div class="col-xs-4">
-                                        <p>今天</p>
-                                        <p>10:23</p>
-                                </div>
-
-                                <div class="col-xs-8 tab-content">
-                                    <p>
-                                        捐赠人：张三
-                                    </p>
-                                    <p>
-                                        捐赠物资 : 大米
-                                    </p>
-                                </div>
-                        </div>
-
+                    <div class="good-tab-list container-fluid" id="nearby_donate">
                     </div>
                 </div>
 

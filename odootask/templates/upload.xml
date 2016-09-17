@@ -15,22 +15,17 @@
 
                             <div id="good_upload" style="margin-top:20px;" class="col-xs-12">
                                 <div class="good-upload-content">
-                                        <input type="text" placeholder="请输入手机号" class="form-control upload_item" />
-                                        <input type="text" placeholder="请输入身份证号" class="form-control upload_item" />
-                                        <input type="text" placeholder="请输入姓名" class="form-control upload_item" />
-                                        <select class="form-control upload_item">
-                                            <option value="0">请选择物资种类</option>
-                                            <option value="1">大米</option>
-                                            <option value="2">食用油</option>
+                                        <select class="form-control upload_item" id="community_name">
                                         </select>
-                                        <input type="text" placeholder="请输入捐赠数量" class="form-control upload_item"/>
-                                        <select class="form-control upload_item">
-                                            <option value="0">请请选择计量单位</option>
-                                            <option value="1">公斤</option>
-                                            <option value="2">袋</option>
-                                            <option value="2">斤</option>
+                                        <input type="text" placeholder="请输入手机号" class="form-control upload_item" id="phone" />
+                                        <input type="text" placeholder="请输入身份证号" class="form-control upload_item" id="cardid"/>
+                                        <input type="text" placeholder="请输入姓名" class="form-control upload_item" id="donator_name"/>
+                                        <select class="form-control upload_item" id="good_type">
                                         </select>
-                                        <textarea placeholder="请添加备注" class="form-control upload_item"></textarea>
+                                        <input type="text" placeholder="请输入捐赠数量" class="form-control upload_item" id="amount"/>
+                                        <select class="form-control upload_item" id="unit">
+                                        </select>
+                                        <textarea placeholder="请添加备注" class="form-control upload_item" id="remark"></textarea>
                                         <img src="/odootask/static/images/image_upload.png" id="image_upload"  class="fileinput-button" onclick="javascript:takePhoto()" />
                                         <input type="file"  name="files" id="take_photo" style="display:none;" />
                                         <span id="media_content">
