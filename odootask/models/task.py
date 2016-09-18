@@ -1,70 +1,147 @@
 #coding=utf-8
-from openerp import models, fields, api, _
 
+from openerp.osv import osv,fields
+from openerp import tools, api
+import pdb
 
-# odootask.task
-class Task(models.Model):
+#odootask.task
+class Task(osv.osv):
     _inherit = "mail.thread"
     _name = "odootask.task"
-    
-    name = fields.Char()
-    close_date = fields.Date()
-    description = fields.Text()
-    applier_ids = fields.Many2many("res.users")
-    comment_ids = fields.One2many("odootask.task_comment", "task_id")
-    state = fields.Selection(
-        [("confirmed", "等待入库"),("approved","确认收入"), ("done", "完成发放"), ("draft", "取消收入")], default="confirmed")
 
-    number = fields.Char()
-    category_id = fields.Many2one("odootask.task_category")
-    amount = fields.Float()
-    unit = fields.Many2one("odootask.unit")
-    doantor_id = fields.Many2one("res.partner")
-    donate_time = fields.Date()
-    donee_id = fields.Many2one("res.partner")
-    donee_type = fields.Many2one("odootask.donee_type")
-    remark = fields.Char(size=1000)
-    track = fields.One2many("odootask.track","number")
+    @api.multi
+    def _get_image(self, name, args):
+        return dict((p.id, tools.image_get_resized_images(p.image)) for p in self)
+
+    @api.one
+    def _set_image(self, name, value, args):
+        return self.write({'image': tools.image_resize_image_big(value)})
+
+    @api.multi
+    def _has_image(self, name, args):
+        return dict((p.id, bool(p.image)) for p in self)
+
+    def write(self,cr,uid,ids,vals,context=None):
+        context = context or {}
+        if vals.has_key("id"):
+            ids = [vals["id"]]
+        res = super(Task, self).write(cr,uid,ids,vals,context=context)
+        return res
+
+    _columns = {
+
+        'number':fields.char('Number'),
+        'category_id':fields.many2one('odootask.task_category'),
+        'amount':fields.float(),
+        'unit':fields.many2one("odootask.unit"),
+        'donator_id':fields.many2one("res.partner"),
+        'donate_time':fields.datetime("Donate Time"),
+        'donee_id':fields.many2one('res.partner'),
+        'donee_type':fields.many2one('odootask.donee_type'),
+        'remark':fields.char('Remark'),
+        'track':fields.one2many('odootask.track','number'),
+
+        'state':fields.selection(
+            [("confirmed", "等待入库"),("approved","确认收入"), ("done", "完成发放"), ("draft", "取消收入")], default="confirmed"),
+
+        # image: all image fields are base64 encoded and PIL-supported
+        'image': fields.binary("Image",
+            help="This field holds the image used as avatar for this contact, limited to 1024x1024px"),
+        'image_medium': fields.function(_get_image, fnct_inv=_set_image,
+            string="Medium-sized image", type="binary", multi="_get_image",
+            store={
+                'res.partner': (lambda self, cr, uid, ids, c={}: ids, ['image'], 10),
+            },
+            help="Medium-sized image of this contact. It is automatically "\
+                 "resized as a 128x128px image, with aspect ratio preserved. "\
+                 "Use this field in form views or some kanban views."),
+        'image_small': fields.function(_get_image, fnct_inv=_set_image,
+            string="Small-sized image", type="binary", multi="_get_image",
+            store={
+                'res.partner': (lambda self, cr, uid, ids, c={}: ids, ['image'], 10),
+            },
+            help="Small-sized image of this contact. It is automatically "\
+                 "resized as a 64x64px image, with aspect ratio preserved. "\
+                 "Use this field anywhere a small image is required."),
+        'has_image': fields.function(_has_image, type="boolean"),
+
+        'image_path':fields.char("图片地址"),
+        "image_url":fields.char("图片查询url"),
+
+    }
+
+# 志愿者
+class GoodPartner(osv.osv):
+    _name = "res.partner"
+    _inherit = "res.partner"
+
+    def write(self,cr,uid,ids,vals,context=None):
+        context = context or {}
+        if vals.has_key("id"):
+            ids = [vals["id"]]
+        res = super(GoodPartner, self).write(cr,uid,ids,vals,context=context)
+        return res
+
+    _columns = {
+        'number':fields.char("编号"),
+        'partner_type':fields.selection([("donator", "志愿者"),("donatee","受赠人")]),
+        'cardid':fields.char("身份证"),
+        'goods':fields.one2many("odootask.task","number"),
+    }
 
 # odootask.task_category
-class TaskCategory(models.Model):
+class TaskCategory(osv.osv):
     _name = "odootask.task_category"
 
-    name = fields.Char()
-    task_ids = fields.One2many("odootask.task", "category_id")
-
+    _columns = {
+        'name':fields.char('名称'),
+        'task_ids':fields.one2many('odootask.task','category_id'),
+    }
 
 # odootask.task_comment
-class Comment(models.Model):
+class Comment(osv.osv):
     _name = "odootask.task_comment"
-    content = fields.Char(size=1000)
-    task_id = fields.Many2one("odootask.task")
 
+    _columns = {
+        'content':fields.char('Content'),
+        'task_id':fields.many2one('odootask.task'),
+    }
 
-class User(models.Model):
-    _inherit = "res.users"
-
-    odootask_ids = fields.One2many("odootask.task", "create_uid")
-
-class DoneeType(models.Model):
+class DoneeType(osv.osv):
     _name = "odootask.donee_type"
 
-    name = fields.Char(size=255)
+    _columns = {
+        'name':fields.char('名称'),
+    }
 
-class Unit(models.Model):
+class Unit(osv.osv):
     _name = "odootask.unit"
 
-    name = fields.Char(size=10)
+    _columns = {
+        'name':fields.char('名称'),
+    }
 
-class Track(models.Model):
+class Community(osv.osv):
+    _name = "odootask.community"
+
+    _columns = {
+        'name':fields.char('名称'),
+        'number':fields.char('编号'),
+    }
+
+class Track(osv.osv):
     _name = "odootask.track"
-    
-    number = fields.Many2one("odootask.task")
-    type = fields.Many2one("odootask.track_type")
-    time = fields.Date()
 
-class TrackType(models.Model):
+    _columns = {
+        'number':fields.many2one('odootask.task'),
+        'type':fields.many2one('odootask.track_type'),
+        'time':fields.datetime('Time'),
+    }
+
+class TrackType(osv.osv):
     _name = "odootask.track_type"
 
-    name = fields.Char(size=255)
-    desc = fields.Text()
+    _columns = {
+        'name':fields.char('名称'),
+        'desc':fields.text('Desc'),
+    }

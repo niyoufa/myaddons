@@ -25,15 +25,8 @@
     'data': [
         'security/schoolwork_security.xml',
         # 'security/ir.model.access.csv',
-        # 'templates.xml',
-        'workflows/workflow_school.xml',
-        'views/schoolwork_view.xml',
-        'views/schoolwork_school.xml',
-        'views/schoolwork_student.xml',
-        'views/schoolwork_teacher.xml',
-        'views/schoolwork_lesson.xml',
-        'views/schoolwork_classroom.xml',
-
+        'views/user_view.xml',
+        'templates.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
