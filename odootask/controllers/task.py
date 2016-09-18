@@ -260,8 +260,9 @@ class GoodsController(openerp.http.Controller):
         try:
             env = request.env
             community_name = kw.get("community_name")
-            phone = kw.get("phone")
-            cardid = kw.get("cardid")
+            phone = kw.get("phone","")
+            phone_code = kw.get("phone_code","")
+            cardid = kw.get("cardid","")
             donator_name = kw.get("donator_name")
             good_type = kw.get("good_type")
             amount = kw.get("amount")
@@ -296,6 +297,7 @@ class GoodsController(openerp.http.Controller):
                 ,("phone","=",phone),("cardid","=",cardid)])
                 donator_obj = donators[0]
                 donator_obj["number"] = "DR"  + str(donator_obj["id"]).zfill(6)
+                donaor_number = donator_obj["number"]
                 donator_id = donator_obj["id"]
                 env["res.partner"].sudo().write({"id":donator_id,"number":donator_obj["number"] })
 
@@ -329,6 +331,7 @@ class GoodsController(openerp.http.Controller):
 
             created_goods = env['odootask.task'].sudo().search_read([("id","=",good_obj["id"])])
             res["data"]["good"] = created_goods[0]
+            res["data"]["donator_number"] = donaor_number
         except Exception, e:
             res["code"] = status.Status.ERROR
             res["error_info"] = str(e)
