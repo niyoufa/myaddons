@@ -67,7 +67,6 @@ class Task(osv.osv):
 
         'image_path':fields.char("图片地址"),
         "image_url":fields.char("图片查询url"),
-
     }
 
 # 志愿者

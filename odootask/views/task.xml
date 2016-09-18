@@ -44,6 +44,7 @@
                     <field name="donee_id" string="受赠人"/>
                     <field name="donee_type" string="受赠人类别"/>
                     <field name="remark" string="备注"/>
+                    <!-- <field name="image_url" string="图片路径"/> -->
                 </tree>
             </field>
         </record>
