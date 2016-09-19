@@ -29,21 +29,21 @@
                                         <select class="form-control upload_item" id="unit">
                                         </select>
                                         <textarea placeholder="请添加备注" class="form-control upload_item" id="remark"></textarea>
-                                        <img src="/odootask/static/images/image_upload.png" id="image_upload"  class="fileinput-button" onclick="javascript:takePhoto()" />
+                                        <!-- <img src="/odootask/static/images/image_upload.png" id="image_upload"  class="fileinput-button" onclick="javascript:takePhoto()" />
                                         <input type="file"  name="files" id="take_photo" style="display:none;" />
                                         <span id="media_content">
-                                        </span>
+                                        </span> -->
                                         <button class="form-control btn btn-default upload_item" id="upload_good_info">提交</button>
                                 </div>
                             </div>
 
                         </div>
                     </div>
-                    <script>
+                    <!-- <script>
                             function takePhoto(){
                                     $("#take_photo").click() ; 
                             }
-                    </script>
+                    </script> -->
                 </div>
             </t>
             <t t-call="odootask.track_css"/>

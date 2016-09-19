@@ -22,7 +22,7 @@ $(function(){
                 $("#good_search_list").append(String.format(''+
                     '<div class="good-tab row">'+
                         '<div class="col-xs-4">'+
-                                '<img src="{0}" alt="error" class="float-left"/>'+
+                                '<img src="/web/binary/image?model=odootask.task_category&id={0}&field=image_medium" alt="error" class="float-left"/>'+
                         '</div>'+
                         '<div class="col-xs-8 tab-content">'+
                             '<p>'+
@@ -37,7 +37,7 @@ $(function(){
                         '</div>'+
                         '<span class="good_numer" style="display:none;">{4}<span>'+
                     '</div>'
-                ,result[i].image_url,result[i].donator_id[1],result[i].category_id[1],result[i].create_date,result[i].number));
+                ,result[i].category_id[0],result[i].donator_id[1],result[i].category_id[1],result[i].create_date,result[i].number));
             }
             $(".good-tab").click(function(){
                 var good_number = $(this).find(".good_numer").text();

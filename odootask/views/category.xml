@@ -1,0 +1,42 @@
+<openerp>
+ <data>
+
+    <!--定义表单视图-->
+    <record model="ir.ui.view" id="good_category_form_view">
+        <field name="name">物资种类表单</field>
+        <field name="type">form</field>
+        <field name="model">odootask.task_category</field>
+        <field name="arch" type="xml">
+            <form string="地址表单">
+                <group col="2">
+                    <field name="name" string="名称"/>
+                    <field name="image" string="图片" widget='image' class="oe_avatar oe_left" options='{"preview_image": "image_medium"}'/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <!--定义列表视图-->
+    <record model="ir.ui.view" id="good_category_tree_view">
+        <field name="name">物资种类列表</field>
+        <field name="type">tree</field>
+        <field name="model">odootask.task_category</field>
+        <field name="arch" type="xml">
+            <tree string="物资种类">
+                <field name="name" string="名称" />
+                <field name="create_date" string="创建时间" />
+            </tree>
+        </field>
+    </record>
+    <!--定义视图动作-->
+    <record model="ir.actions.act_window"  id="action_good_category">
+        <field name="name">物资种类</field> 
+        <field name="res_model">odootask.task_category</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form,tree</field>
+        <field name="view_id" ref="good_category_tree_view"/>
+    </record>
+    <!--定义菜单-->
+    <menuitem id="menuitem_task_category" parent="odootask.menuitem_tracks" name="物资种类"
+                  action="action_good_category"></menuitem>
+ </data>
+</openerp>

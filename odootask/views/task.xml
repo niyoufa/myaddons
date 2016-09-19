@@ -2,8 +2,6 @@
 <openerp>
     <data>
         <act_window id="action_odoo_task" res_model="odootask.task" name="捐赠物资管理" view_mode="tree,form"/>
-        <act_window id="action_odoo_task_category" res_model="odootask.task_category" name="物资种类"
-                    view_mode="tree,form"/>
         <act_window id="action_odoo_task_unit" res_model="odootask.unit" name="计量单位"
                     view_mode="tree,form"/>
         <act_window id="action_odoo_task_track" res_model="odootask.track" name="物资追踪"
@@ -19,9 +17,7 @@
         <menuitem id="menuitem_task" parent="odootask.menuitem_tasks" name="捐赠物资"
                   action="odootask.action_odoo_task"></menuitem>
 
-        <menuitem id="menuitem_tracks" parent="odootask.menuitem_main" name="系统设置"></menuitem>
-        <menuitem id="menuitem_task_category" parent="odootask.menuitem_tracks" name="物资种类"
-                  action="odootask.action_odoo_task_category"></menuitem>
+        <menuitem id="menuitem_tracks" parent="odootask.menuitem_main" name="捐赠设置"></menuitem>
         <menuitem id="menuitem_task_unit" parent="odootask.menuitem_tracks" name="计量单位"
                   action="odootask.action_odoo_task_unit"></menuitem>
         <menuitem id="menuitem_task_track_type" parent="odootask.menuitem_tracks" name="追踪类型"
@@ -78,6 +74,7 @@
                                 <tree string="物资追踪明细" editable="bottom">
                                     <field name="time" string="时间"></field>
                                     <field name="type" string="描述"></field>
+                                    <field name="image" string="图片" widget='image' class="oe_avatar oe_left" options='{"preview_image": "image_medium"}'></field>
                                 </tree>
                                 </field>
                                 <div class="oe_clear"/>

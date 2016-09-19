@@ -21,6 +21,7 @@
         'views/task.xml',
         'views/donator.xml',
         'views/donatee.xml',
+        'views/category.xml',
     ],
     # # data files containing optionally loaded demonstration data
     # 'demo': [
