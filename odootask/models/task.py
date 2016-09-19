@@ -92,9 +92,42 @@ class GoodPartner(osv.osv):
 class TaskCategory(osv.osv):
     _name = "odootask.task_category"
 
+    @api.multi
+    def _get_image(self, name, args):
+        return dict((p.id, tools.image_get_resized_images(p.image)) for p in self)
+
+    @api.one
+    def _set_image(self, name, value, args):
+        return self.write({'image': tools.image_resize_image_big(value)})
+
+    @api.multi
+    def _has_image(self, name, args):
+        return dict((p.id, bool(p.image)) for p in self)
+
     _columns = {
         'name':fields.char('名称'),
         'task_ids':fields.one2many('odootask.task','category_id'),
+
+        # image: all image fields are base64 encoded and PIL-supported
+        'image': fields.binary("Image",
+            help="This field holds the image used as avatar for this contact, limited to 1024x1024px"),
+        'image_medium': fields.function(_get_image, fnct_inv=_set_image,
+            string="Medium-sized image", type="binary", multi="_get_image",
+            store={
+                'odootask.task_category': (lambda self, cr, uid, ids, c={}: ids, ['image'], 10),
+            },
+            help="Medium-sized image of this contact. It is automatically "\
+                 "resized as a 128x128px image, with aspect ratio preserved. "\
+                 "Use this field in form views or some kanban views."),
+        'image_small': fields.function(_get_image, fnct_inv=_set_image,
+            string="Small-sized image", type="binary", multi="_get_image",
+            store={
+                'odootask.task_category': (lambda self, cr, uid, ids, c={}: ids, ['image'], 10),
+            },
+            help="Small-sized image of this contact. It is automatically "\
+                 "resized as a 64x64px image, with aspect ratio preserved. "\
+                 "Use this field anywhere a small image is required."),
+        'has_image': fields.function(_has_image, type="boolean"),
     }
 
 # odootask.task_comment
@@ -131,10 +164,44 @@ class Community(osv.osv):
 class Track(osv.osv):
     _name = "odootask.track"
 
+    @api.multi
+    def _get_image(self, name, args):
+        return dict((p.id, tools.image_get_resized_images(p.image)) for p in self)
+
+    @api.one
+    def _set_image(self, name, value, args):
+        return self.write({'image': tools.image_resize_image_big(value)})
+
+    @api.multi
+    def _has_image(self, name, args):
+        return dict((p.id, bool(p.image)) for p in self)
+
+
     _columns = {
         'number':fields.many2one('odootask.task'),
         'type':fields.many2one('odootask.track_type'),
         'time':fields.datetime('Time'),
+        
+        # image: all image fields are base64 encoded and PIL-supported
+        'image': fields.binary("Image",
+            help="This field holds the image used as avatar for this contact, limited to 1024x1024px"),
+        'image_medium': fields.function(_get_image, fnct_inv=_set_image,
+            string="Medium-sized image", type="binary", multi="_get_image",
+            store={
+                'odootask.track': (lambda self, cr, uid, ids, c={}: ids, ['image'], 10),
+            },
+            help="Medium-sized image of this contact. It is automatically "\
+                 "resized as a 128x128px image, with aspect ratio preserved. "\
+                 "Use this field in form views or some kanban views."),
+        'image_small': fields.function(_get_image, fnct_inv=_set_image,
+            string="Small-sized image", type="binary", multi="_get_image",
+            store={
+                'odootask.track': (lambda self, cr, uid, ids, c={}: ids, ['image'], 10),
+            },
+            help="Small-sized image of this contact. It is automatically "\
+                 "resized as a 64x64px image, with aspect ratio preserved. "\
+                 "Use this field anywhere a small image is required."),
+        'has_image': fields.function(_has_image, type="boolean"),
     }
 
 class TrackType(osv.osv):

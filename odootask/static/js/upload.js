@@ -1,27 +1,28 @@
 $(function () {
-
-    var image_path = "/api/image?id=";
-    var api_path = "http://192.168.1.104:8500";
-    // 选择并加载头像的内容
-    $('#take_photo').fileupload({
-        url: api_path + '/api/image/list',
-        method:"POST",
-        sequentialUploads: true,
-        dataType: 'json',
-        done: function (e, data) {
-            var result = data.result.response;
-            if (result['success'] != 1) {
-                alert("上传失败");
-            } else {
-                console.log(result);
-                var image = result.data[0];
-                file_path = image.file_path;
-                image_url = api_path + file_path;
-                console.log(image_url);
-                $("#media_content").html('<img  id="image_url" style="margin-right:10px;width:50px;height:50px;" src=' + image_url + '>');
-            }
-        }
-    });
+    // var image_path = "/api/image?id=";
+    // // 选择并加载头像的内容
+    // $('#take_photo').fileupload({
+    //     url: api_path + '/api/image/list',
+    //     method:"POST",
+    //     sequentialUploads: true,
+    //     dataType: 'json',
+    //     done: function (e, data) {
+    //         var result = data.result.response;
+    //         if (result['success'] != 1) {
+    //             alert("上传失败");
+    //         } else {
+    //             console.log(result);
+    //             var image = result.data[0];
+    //             file_path = image.file_path;
+    //             image_url = api_path + file_path;
+    //             console.log(image_url);
+    //             $("#media_content").html('<img  id="image_url" style="margin-right:10px;width:50px;height:50px;" src=' + image_url + '>');
+    //         }
+    //     }
+    // });
+    
+    //checkcode
+    var api_path = "http://139.224.26.81:8500";
 
     $.get("/communitys",{},function(data){
         if(data.code != 1){
@@ -98,8 +99,8 @@ $(function () {
         var amount = $("#amount").val();
         var unit = $("#unit").val();
         var remark = $("#remark").val();
-        var image_url = $("#image_url").attr("src");
-        var image_path = $("#image_path").val();
+        // var image_url = $("#image_url").attr("src");
+        // var image_path = $("#image_path").val();
 
         if(phone=="" && cardid == ""){
             alert("请输入手机号或身份证号!");
@@ -135,8 +136,8 @@ $(function () {
                 "amount":amount,
                 "unit":unit,
                 "remark":remark,
-                "image_url":image_url,
-                "image_path":image_path,
+                // "image_url":image_url,
+                // "image_path":image_path,
             }
             $.post("/upload",good,function(data){
                 if(data.code != 1){
