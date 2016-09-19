@@ -1,7 +1,7 @@
 $(function () {
 
     var image_path = "/api/image?id=";
-    var api_path = "http://192.168.1.104:8500";
+    var api_path = "http://139.224.26.81:8500";
     // 选择并加载头像的内容
     $('#take_photo').fileupload({
         url: api_path + '/api/image/list',
