@@ -391,7 +391,7 @@ class GoodsController(openerp.http.Controller):
         return res
 
     @http.route('/image', type='http', auth="none", methods=["GET"])
-    def good(self, **kw):
+    def image(self, **kw):
         res = None
         env = request.env
         good_number = kw.get("good_number", "")
