@@ -389,3 +389,31 @@ class GoodsController(openerp.http.Controller):
             res["error_info"] = str(e)
             return res
         return res
+
+    @http.route('/image', type='http', auth="none", methods=["GET"])
+    def good(self, **kw):
+        res = None
+        env = request.env
+        good_number = kw.get("good_number", "")
+        task = env['odootask.task'].sudo().search_read([("number", "=", good_number)])
+        if len(task) == 0:
+            return res
+        tracks = env['odootask.track'].sudo().search_read([("id", "in", task[0]["track"])],
+                                                          order="%s desc" % "create_date")
+        category_id = task[0]["category_id"][0]
+        category_obj = env['odootask.task_category'].sudo().search([("id", "=", category_id)])
+        image_data = category_obj.image
+        import base64
+        image_data = base64.b64decode(image_data)
+        headers = [('Content-Type', 'image/png')]
+        import hashlib
+        hashed_session = hashlib.md5(request.session_id).hexdigest()
+        retag = hashed_session
+        headers.append(('ETag', retag))
+        headers.append(('Content-Length', len(image_data)))
+        try:
+            ncache = int(kw.get('cache'))
+            headers.append(('Cache-Control', 'no-cache' if ncache == 0 else 'max-age=%s' % (ncache)))
+        except:
+            pass
+        return request.make_response(image_data,headers)
