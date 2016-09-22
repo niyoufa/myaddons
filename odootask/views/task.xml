@@ -33,7 +33,6 @@
                     <field name="number" string="物资编号"/>
                     <field name="category_id" string="物资种类"/>
                     <field name="amount" string="规格"/>
-                    <field name="unit" string="计量单位"/>
                     <field name="donator_id" string="捐赠人"/>
                     <field name="create_date" string="捐赠时间"/>
                     <field name="state" string="状态"/>
@@ -60,9 +59,8 @@
                         <group>
                             <field name="category_id" string="物资种类"/>
                             <field name="amount" string="规格"/>
-                            <field name="unit" string="计量单位"/>
                             <field name="donator_id" string="捐赠人"/>
-                            <field name="donate_time" string="捐赠时间"/>
+                            <field name="create_date" string="捐赠时间"/>
                             <field name="state" string="状态"/>
                             <field name="donee_id" string="受赠人"/>
                             <field name="donee_type" string="受赠人类别"/>

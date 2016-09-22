@@ -10,6 +10,7 @@
             <form string="地址表单">
                 <group col="2">
                     <field name="name" string="名称"/>
+                    <field name="unit" string="计量单位"/>
                     <field name="image" string="图片" widget='image' class="oe_avatar oe_left" options='{"preview_image": "image_medium"}'/>
                 </group>
             </form>
@@ -23,6 +24,7 @@
         <field name="arch" type="xml">
             <tree string="物资种类">
                 <field name="name" string="名称" />
+                <field name="unit" string="计量单位"/>
                 <field name="create_date" string="创建时间" />
             </tree>
         </field>

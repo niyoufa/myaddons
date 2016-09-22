@@ -202,6 +202,14 @@ class GoodsController(openerp.http.Controller):
             task = env['odootask.task'].sudo().search_read([("number", "=", good_number)])
             if len(task) == 0:
                 return res
+            category_id = task[0]["category_id"][0]
+            category_obj = env['odootask.task_category'].sudo().search_read([("id", "=",category_id )])[0]
+            if category_obj["unit"] :
+                unit = category_obj["unit"]
+            else:
+                unit = [False,""]
+            good = task[0]
+            good["unit"] = unit
             tracks = env['odootask.track'].sudo().search_read([("id", "in", task[0]["track"])],order="%s desc"%"create_date")
             res["data"]["good"] = task[0]
             res["data"]["tracks"] = tracks
@@ -266,7 +274,6 @@ class GoodsController(openerp.http.Controller):
             donator_name = kw.get("donator_name")
             good_type = kw.get("good_type")
             amount = kw.get("amount")
-            unit = kw.get("unit")
             remark = kw.get("remark","")
             image_path = kw.get("image_path","")
             image_url = kw.get("image_url","")
@@ -276,8 +283,14 @@ class GoodsController(openerp.http.Controller):
             if len(donators) > 0 :
                 donator = donators[0]
                 donaor_number =  donator.get("number","")
-                donator_obj = donator
-                donator_id = donator_obj["id"]
+                donator_id = donator["id"]
+
+                donator_obj = {}
+                donator_obj["id"] = donator_id
+                donator_obj["display_name"] = donator_name
+                donator_obj["name"] = donator_name
+                donator_obj["cardid"] = cardid
+                env["res.partner"].sudo().write(donator_obj)
             else:
                 donator = dict(
                     display_name = donator_name,
@@ -297,20 +310,17 @@ class GoodsController(openerp.http.Controller):
                 donator_obj["number"] = "DR"  + str(donator_obj["id"]).zfill(6)
                 donaor_number = donator_obj["number"]
                 donator_id = donator_obj["id"]
-                env["res.partner"].sudo().write({"id":donator_id,"number":donator_obj["number"] })
+                env["res.partner"].sudo().write({"id":donator_id,"number":donaor_number})
 
             community_obj = env['odootask.community'].sudo().search_read([("name","=",community_name)])
             community_numer = community_obj[0]["number"]
             good_type_obj = env['odootask.task_category'].sudo().search_read([("name","=",good_type)])
             good_type_id = good_type_obj[0]["id"]
-            unit_obj = env['odootask.unit'].sudo().search_read([("name","=",unit)])
-            unit_id = unit_obj[0]["id"]
 
             good = dict(
                 donator_id = donator_id,
                 category_id = good_type_id,
                 amount = amount,
-                unit = unit_id,
                 remark = remark,
                 image_path = image_path,
                 image_url = image_url,
@@ -420,6 +430,27 @@ class GoodsController(openerp.http.Controller):
             env = request.env
             donators = env['res.partner'].sudo().search_read([("partner_type","=","donator")])
             res["data"]["donators"] = donators
+        except Exception, e:
+            res["code"] = status.Status.ERROR
+            res["error_info"] = str(e)
+            return res
+        return res
+
+    @http.route('/donator', type='http', auth="none", methods=["GET"])
+    @serialize_exception
+    def donator(self, **kw):
+        res = utils.init_response_data()
+        try:
+            env = request.env
+            phone = kw.get("mobile","")
+            donators = env['res.partner'].sudo().search_read(["&",("partner_type","=","donator"),("phone","=",phone)])
+            if len(donators):
+                donator = donators[0]
+            else:
+                donator = {}
+            res["data"]["donator"] = {}
+            res["data"]["donator"]["donator_name"] = donator.get("name","")
+            res["data"]["donator"]["cardid"] = donator.get("cardid","")
         except Exception, e:
             res["code"] = status.Status.ERROR
             res["error_info"] = str(e)

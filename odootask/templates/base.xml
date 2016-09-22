@@ -111,8 +111,8 @@
         </template>
 
         <template id="main_footer">
-            <div class="well well-sm">Powered by
-                <a href="http://www.odoo.com" target="_blank">odoo</a>
+            <div style="width:100%; position:fixed; left:0; bottom:0;text-align:center;">Copyright © 2016-2016
+                <a href="#" target="_blank">Dsz.</a>All Rights Reserved.
             </div>
         </template>
 
@@ -146,12 +146,12 @@
                     </title>
                     <t t-call="odootask.website_assets_css"/>
                 </head>
-                <body>
+                <body style="position:relative;">
                     <!-- <t t-call="odootask.main_nav"/> -->
-                    <div name="content">
+                    <div name="content" style="margin-bottom:30px;">
                         <t t-raw="0"/>
                     </div>
-                    <!--<t t-call="odootask.main_footer"/>-->
+                    <t t-call="odootask.main_footer"/>
                     <t t-call="odootask.website_assets_js"/>
                     <t t-call="odootask.utils_js"/>
                 </body>

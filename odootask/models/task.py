@@ -118,6 +118,7 @@ class TaskCategory(osv.osv):
 
     _columns = {
         'name':fields.char('名称'),
+        'unit':fields.many2one('odootask.unit',"计量单位"),
         'task_ids':fields.one2many('odootask.task','category_id'),
 
         # image: all image fields are base64 encoded and PIL-supported

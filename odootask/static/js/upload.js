@@ -45,9 +45,14 @@ $(function () {
         }
         result = data.data.good_types;
         for(var i=0,len=result.length;i<len;i++){
+            if(result[i]["unit"]){
+                good_unit = "/"+result[i]["unit"][1];
+            }else{
+                good_unit = "";
+            }
             $("#good_type").append(String.format(''+
-                '<option value="{0}">{0}</option>'
-            ,result[i].name));
+                '<option value="{0}">{1}</option>'
+            ,result[i].name,result[i].name+ good_unit));
         }
     },"json");
 
@@ -80,17 +85,29 @@ $(function () {
             }
             var index = 60;
             var interval_obj = setInterval(function(){
+                    index = index -1;
+                    $("#get_phone_code").html(String(index) + "s") ; 
                     if(index == 1){
                         index = 60;
                         $("#get_phone_code").html("获取验证码") ;
                         $("#get_phone_code").attr("disabled",false);
                         clearInterval(interval_obj);
-                        return;
                     }
-                    index = index -1;
-                    $("#get_phone_code").html(String(index) + "s") ; 
             },1000);
             console.log(data.response.data.code);
+
+            $.get("/donator",{"mobile":phone},function(data){
+                if(data.code != 1){
+                    return;
+                }
+                var donator = data.data.donator;
+                var donator_name = donator.donator_name;
+                var cardid = donator.cardid;
+                $("#donator_name").val(donator_name);
+                $("#cardid").val(cardid);
+                return;
+            },"json") ; 
+
         },"json");
     });
 
@@ -102,7 +119,6 @@ $(function () {
         var donator_name = $("#donator_name").val();
         var good_type = $("#good_type").val();
         var amount = $("#amount").val();
-        var unit = $("#unit").val();
         var remark = $("#remark").val();
         // var image_url = $("#image_url").attr("src");
         // var image_path = $("#image_path").val();
@@ -120,9 +136,6 @@ $(function () {
         }else if(amount == ""){
             alert("请输入数量!");
             return;
-        }else if(unit==""){
-            alert("请输入计量单位");
-            return;
         }
 
         //验证手机验证码
@@ -139,7 +152,6 @@ $(function () {
                 "donator_name":donator_name,
                 "good_type":good_type,
                 "amount":amount,
-                "unit":unit,
                 "remark":remark,
                 // "image_url":image_url,
                 // "image_path":image_path,
