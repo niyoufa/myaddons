@@ -51,7 +51,6 @@ class lesson(osv.osv):
     }
 
     def query_current_lesson(self,*args,**kwargs):
-        pdb.set_trace()
         pass
 
 class course_type(osv.osv):

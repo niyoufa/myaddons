@@ -18,7 +18,8 @@
                                         <select class="form-control upload_item" id="community_name">
                                         </select>
                                         <input type="text" placeholder="请输入手机号" class="form-control upload_item" id="phone" />
-                                        <input type="text" placeholder="请输入验证码" class="form-control upload_item" id="phone_code" style="width:55%;float:left;" /><button class="form-control upload_item" style="width:35%;float:left;margin-left:20px;" id="get_phone_code">获取验证码</button>
+                                        <input type="text" placeholder="请输入验证码" class="form-control upload_item" id="phone_code" style="width:55%;float:left;" />
+                                        <button class="form-control upload_item" style="width:35%;float:left;margin-left:20px;" id="get_phone_code">获取验证码</button>
                                         <div class="clear:both;"></div>
 
                                         <input type="text" placeholder="请输入身份证号" class="form-control upload_item" id="cardid"/>

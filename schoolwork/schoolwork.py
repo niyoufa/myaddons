@@ -12,8 +12,6 @@ class school(osv.osv):
     _columns = {}
 
     def print_a(self,*args,**kwargs):
-        import pdb
-        pdb.set_trace()
         print "a"
         print args
 

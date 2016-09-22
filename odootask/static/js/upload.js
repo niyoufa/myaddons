@@ -23,6 +23,7 @@ $(function () {
     
     //checkcode
     var api_path = "http://139.224.26.81:8500";
+//      var api_path = "http://localhost:8500";
 
     $.get("/communitys",{},function(data){
         if(data.code != 1){
@@ -71,16 +72,20 @@ $(function () {
             return;
         }
         $.get(api_path + "/api/checkcode/mobile",{"mobile":phone},function(data){
+            $("#get_phone_code").attr("disabled",true);
             if(data.response.success != 1){
                 alert(data.response.return_code);
+                $("#get_phone_code").attr("disabled",false);
                 return;
             }
             var index = 60;
             var interval_obj = setInterval(function(){
                     if(index == 1){
                         index = 60;
-                        $("#get_phone_code").html("获取验证码") ; 
-                        clearInterval(sh);
+                        $("#get_phone_code").html("获取验证码") ;
+                        $("#get_phone_code").attr("disabled",false);
+                        clearInterval(interval_obj);
+                        return;
                     }
                     index = index -1;
                     $("#get_phone_code").html(String(index) + "s") ; 
