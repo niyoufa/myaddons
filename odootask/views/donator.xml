@@ -8,6 +8,12 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
+            <field name="email"  position="replace">
+                <field name="cardid" />
+            </field>
+            <field name="cardid"  position="after">
+                <field name= "partner_type"  string="类型"/>
+            </field>
             <xpath expr="//page[@name='internal_notes']" position="before">
                 <page string="捐赠列表">
                     <field name="goods">
@@ -27,7 +33,12 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_tree"></field>
         <field name="arch" type="xml">
-            <tree></tree>
+            <field name="display_name"  position="before">
+                <field name= "number" string="编号"/>
+            </field>
+            <field name="email"  position="replace">
+                <field name= "cardid" />
+            </field>
         </field>
     </record>
 

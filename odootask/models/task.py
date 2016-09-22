@@ -36,7 +36,7 @@ class Task(osv.osv):
         'unit':fields.many2one("odootask.unit"),
         'donator_id':fields.many2one("res.partner"),
         'donate_time':fields.datetime("Donate Time"),
-        'donee_id':fields.many2one('res.partner'),
+        'donee_id':fields.many2one('odootask.donatee'),
         'donee_type':fields.many2one('odootask.donee_type'),
         'remark':fields.char('Remark'),
         'track':fields.one2many('odootask.track','number'),
@@ -85,7 +85,19 @@ class GoodPartner(osv.osv):
         'number':fields.char("编号"),
         'partner_type':fields.selection([("donator", "志愿者"),("donatee","受赠人")]),
         'cardid':fields.char("身份证"),
-        'goods':fields.one2many("odootask.task","number"),
+        'goods':fields.one2many("odootask.task","donator_id"),
+        'donatee_goods':fields.one2many("odootask.task","donee_id"),
+    }
+
+class Donatee(osv.osv):
+    _name = "odootask.donatee"
+
+    _columns = {
+        'name':fields.char('名称'),
+        'phone':fields.char('手机号'),
+        'partner_type': fields.selection([("donator", "志愿者"), ("donatee", "受赠人")]),
+        'cardid': fields.char("身份证"),
+        'donatee_goods': fields.one2many("odootask.task", "donee_id"),
     }
 
 # odootask.task_category

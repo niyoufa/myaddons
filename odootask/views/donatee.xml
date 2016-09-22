@@ -5,39 +5,47 @@
     <record model="ir.ui.view" id="donatee_form_view">
         <field name="name">受赠人表单</field>
         <field name="type">form</field>
-        <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="model">odootask.donatee</field>
         <field name="arch" type="xml">
-            <field name="email"  position="replace">
-                <field name="cardid" />
-            </field>
-            <field name="cardid"  position="after">
-                <field name= "partner_type"  string="类型"/>
-            </field>
+                <form>
+                    <group col="2">
+                        <field name= "name" string="名称"/>
+                        <field name= "phone" string="手机号" />
+                        <field name= "cardid" string="身份证"/>
+                        <field name="partner_type" string="类型"/>
+                    </group>
+                    <notebook colspan="4">
+                        <page string="捐赠列表">
+                            <field name="donatee_goods">
+                                <tree string="受赠列表" editable="bottom">
+                                    <field name="number" string="物资编号"></field>
+                                    <field name="category_id" string="物资类型"></field>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </form>
         </field>
     </record>
     <!--定义列表视图-->
     <record model="ir.ui.view" id="donatee_tree_view">
         <field name="name">受赠人列表</field>
         <field name="type">tree</field>
-        <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_partner_tree"></field>
+        <field name="model">odootask.donatee</field>
         <field name="arch" type="xml">
-            <field name="display_name"  position="before">
-                <field name= "number" string="编号" />
-            </field>
-            <field name="email"  position="replace">
-                <field name= "cardid" />
-            </field>
+            <tree>
+                <field name= "name" string="名称"/>
+                <field name= "phone" string="手机号" />
+                <field name= "cardid" string="身份证"/>
+            </tree>
         </field>
     </record>
 
     <record model="ir.ui.view" id="donatee_search">
         <field name="name">查询</field>
-        <field name="model">res.partner</field>
+        <field name="model">odootask.donatee</field>
         <field name="arch" type="xml">
             <search>
-                <field name="number" string="编号"/>
                 <field name="display_name" string="姓名"/>
                 <field name="phone" string="手机号" />
                 <field name="cardid" string="身份证"/>
@@ -47,8 +55,8 @@
 
     <!--定义视图动作-->
     <record model="ir.actions.act_window"  id="action_donatee">
-        <field name="name">受赠人</field>    <!--这个字符串即课程对应列表或编辑界面的标题-->
-        <field name="res_model">res.partner</field>
+        <field name="name">受赠人</field>
+        <field name="res_model">odootask.donatee</field>
         <field name="view_type">form</field>
         <field name="view_mode">form,tree</field>
         <field name="view_id" ref="donatee_tree_view"/>

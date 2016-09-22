@@ -107,8 +107,8 @@ $(function () {
         // var image_url = $("#image_url").attr("src");
         // var image_path = $("#image_path").val();
 
-        if(phone=="" && cardid == ""){
-            alert("请输入手机号或身份证号!");
+        if(phone==""){
+            alert("请输入手机号!");
             return;
         }else if(phone != "" && phone_code == ""){
             alert("请输入手机验证码!");

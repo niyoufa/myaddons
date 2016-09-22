@@ -271,10 +271,8 @@ class GoodsController(openerp.http.Controller):
             image_path = kw.get("image_path","")
             image_url = kw.get("image_url","")
             state = "confirmed"
-
             #存储捐赠人信息
-            donators = env['res.partner'].sudo().search_read(["|","&",("partner_type","=","donator")
-                ,("phone","=",phone),("cardid","=",cardid)])
+            donators = env['res.partner'].sudo().search_read(["&",("partner_type", "=", "donator"), ("phone","=",phone)])
             if len(donators) > 0 :
                 donator = donators[0]
                 donaor_number =  donator.get("number","")
@@ -293,8 +291,8 @@ class GoodsController(openerp.http.Controller):
                     env["res.partner"].sudo().create(donator)
                 except:
                     pass
-                donators = env['res.partner'].sudo().search_read(["|","&",("partner_type","=","donator")
-                ,("phone","=",phone),("cardid","=",cardid)])
+                donators = env['res.partner'].sudo().search_read(["&",("partner_type","=","donator")
+                ,("phone","=",phone)])
                 donator_obj = donators[0]
                 donator_obj["number"] = "DR"  + str(donator_obj["id"]).zfill(6)
                 donaor_number = donator_obj["number"]
@@ -324,10 +322,6 @@ class GoodsController(openerp.http.Controller):
             good_obj_update["id"] = good_obj["id"]
             good_obj_update["number"] = "W" + "-" + community_numer  + "-"+ str(good_obj["id"]).zfill(6)
             env["odootask.task"].sudo().write(good_obj_update)
-
-            good = env["odootask.task"].sudo().search([("id","=",good_obj["id"])])[0]
-            donator_obj["goods"].append(good)
-            env["res.partner"].sudo().write({"id":donator_id,"goods":donator_obj["goods"]})
 
             created_goods = env['odootask.task'].sudo().search_read([("id","=",good_obj["id"])])
             res["data"]["good"] = created_goods[0]
@@ -417,3 +411,18 @@ class GoodsController(openerp.http.Controller):
         except:
             pass
         return request.make_response(image_data,headers)
+
+    @http.route('/donators', type='http', auth="none", methods=["GET"])
+    @serialize_exception
+    def donators(self, **kw):
+        res = utils.init_response_data()
+        try:
+            env = request.env
+            donators = env['res.partner'].sudo().search_read([("partner_type","=","donator")])
+            res["data"]["donators"] = donators
+        except Exception, e:
+            res["code"] = status.Status.ERROR
+            res["error_info"] = str(e)
+            return res
+        return res
+
