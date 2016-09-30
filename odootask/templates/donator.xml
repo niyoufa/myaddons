@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="donator" name="doantor">
+            <t t-call="odootask.main_layout">
+                <t t-set="title" t-value="''"/>
+
+                <!-- 物资查询列表 -->
+                <div class="container-fluid">
+                   <div class="row" id="donator_search_list_page">
+
+                        <div class="col-xs-9" style="margin-top:10px;">
+                            <input id="mobile" type="text" placeholder="请输入手机号" class="form-control"/>
+                        </div>
+
+                       <div class="col-xs-3" style="margin-top:10px;">
+                            <a id="make_search" href="#">确定</a>
+                        </div>
+                   </div>
+               </div>
+
+                <div class="good-tab-list container-fluid" style="padding-top:10px;" id="donator_search_list">
+                </div>
+            </t>
+            <t t-call="odootask.donator_js"/>
+        </template>
+    </data>
+</openerp>

@@ -192,6 +192,11 @@ class GoodsController(openerp.http.Controller):
         context = dict()
         return odootask_qweb_render.render("odootask.upload", context=context)
 
+    @openerp.http.route("/donator.html", type='http', auth="none", methods=["GET"])
+    def donator_page(self, **kwargs):
+        context = dict()
+        return odootask_qweb_render.render("odootask.donator", context=context)
+
     @http.route('/good', type='http', auth="none", methods=["GET"])
     @serialize_exception
     def good(self, **kw):
@@ -210,6 +215,8 @@ class GoodsController(openerp.http.Controller):
                 unit = [False,""]
             good = task[0]
             good["unit"] = unit
+            good["create_date"] = str(datetime.datetime.strptime(good["create_date"], "%Y-%m-%d %H:%M:%S") + datetime.timedelta(
+                    hours=8)).split(".")[0]
             tracks = env['odootask.track'].sudo().search_read([("id", "in", task[0]["track"])],order="%s desc"%"create_date")
             res["data"]["good"] = task[0]
             res["data"]["tracks"] = tracks
@@ -241,6 +248,28 @@ class GoodsController(openerp.http.Controller):
             env = request.env
             good_types = env['odootask.task_category'].sudo().search_read()
             res["data"]["good_types"] = good_types
+        except Exception, e:
+            res["code"] = status.Status.ERROR
+            res["error_info"] = str(e)
+            return res
+        return res
+
+    @http.route('/donator_number', type='http', auth="none", methods=["GET"])
+    @serialize_exception
+    def donator_number(self, **kw):
+        res = utils.init_response_data()
+        try:
+            env = request.env
+            mobile = kw.get("mobile","")
+            if mobile == "":
+                raise Exception("请输入手机号")
+
+            donators = env['res.partner'].sudo().search_read([("phone","=",mobile)])
+            if len(donators):
+                donator = donators[0]
+            else:
+                donator = {}
+            res["data"]["donator"] = donator
         except Exception, e:
             res["code"] = status.Status.ERROR
             res["error_info"] = str(e)
@@ -336,6 +365,11 @@ class GoodsController(openerp.http.Controller):
             created_goods = env['odootask.task'].sudo().search_read([("id","=",good_obj["id"])])
             res["data"]["good"] = created_goods[0]
             res["data"]["donator_number"] = donaor_number
+            # try:
+            #     utils.send_106sms(phone,donaor_number)
+            # except Exception,e:
+            #     print e
+
         except Exception, e:
             res["code"] = status.Status.ERROR
             res["error_info"] = str(e)
@@ -357,6 +391,8 @@ class GoodsController(openerp.http.Controller):
                 goods = env["odootask.task"].sudo().search_read([("donator_id","=",donator["id"])])
                 goods.sort(key=lambda obj:obj["create_date"])
                 goods.reverse()
+                for good in goods:
+                    good["create_date"] = str(datetime.datetime.strptime(good["create_date"], "%Y-%m-%d %H:%M:%S") + datetime.timedelta(hours=8)).split(".")[0]
             res["data"]["goods"] = goods
         except Exception, e:
             res["code"] = status.Status.ERROR
@@ -376,6 +412,7 @@ class GoodsController(openerp.http.Controller):
             goods = goods[0:5]
             for good in goods :
                 create_date = good["create_date"]
+                create_date = str(datetime.datetime.strptime(create_date, "%Y-%m-%d %H:%M:%S") + datetime.timedelta(hours=8)).split(".")[0]
                 date = create_date.split(" ")[0]
                 time = create_date.split(" ")[1]
                 curr_date = str(datetime.datetime.now()).split(" ")[0]
@@ -384,6 +421,7 @@ class GoodsController(openerp.http.Controller):
                 else:
                     show_date = date.split("-")[1] + "-"+ date.split("-")[2]
                 show_time = time.split(":")[0] +":"+ time.split(":")[1]
+                good["create_date"] = create_date
                 good["show_date"] = show_date
                 good["show_time"] = show_time
 

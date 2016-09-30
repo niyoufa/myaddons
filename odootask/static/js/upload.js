@@ -162,7 +162,7 @@ $(function () {
                     return;
                 }
                 console.log(data.data);
-                alert(String.format("您的志愿者编号为：{0},稍后发送到您的手机!",data.data.donator_number));
+                alert(String.format("您的志愿者编号为：{0},您也可以在志愿者查询页面查询!",data.data.donator_number));
                 location.href = "/index.html" ; 
             },"json");
 

@@ -17,6 +17,7 @@
         'templates/search.xml',
         'templates/detail.xml',
         'templates/upload.xml',
+        'templates/donator.xml',
 
         'views/task.xml',
         'views/donator.xml',

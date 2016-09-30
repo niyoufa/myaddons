@@ -136,6 +136,10 @@
             <script src="odootask/static/js/detail.js"></script>
         </template>
 
+        <template id="donator_js" name="js">
+            <script src="odootask/static/js/donator.js"></script>
+        </template>
+
         <template id="main_layout">
             &lt;!DOCTYPE html&gt;
             <html lang="zh-CN">

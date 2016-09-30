@@ -293,6 +293,20 @@ def str2datetime(timestr):
     d = datetime.datetime(*t[:6])
     return d
 
+import sys, urllib, urllib2, json,pdb
+def send_106sms( mobile, code):
+    mobile = mobile.encode('utf-8')
+    code = code.encode('utf-8')
+    url = 'http://apis.baidu.com/kingtto_media/106sms/106sms?mobile=%s&tag=2&content=【丁蜀镇】%s，有效时间30分钟，请不要告诉他人' % (mobile, code)
+    req = urllib2.Request(url)
+
+    req.add_header("apikey", "31647c1f8f32c5d01956a725d38ef39e")
+    resp = urllib2.urlopen(req)
+    content = resp.read()
+    if (content):
+        print(content)
+    return json.loads(content)
+
 # 测试timestr
 if __name__ == "__main__":
     pass

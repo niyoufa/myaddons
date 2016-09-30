@@ -55,6 +55,7 @@
                 <div style="width:100%;" id="nearby_donate_page">
                     <div class="title">
                         <span>最近捐赠</span>
+                        <a href="/donator.html" style="float:right;">查询志愿者编号</a>
                     </div>
                     <div class="good-tab-list container-fluid" id="nearby_donate">
                     </div>
