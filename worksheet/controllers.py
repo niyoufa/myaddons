@@ -59,3 +59,17 @@ class WorkController(openerp.http.Controller):
             res["error_info"] = str(e)
             return res
         return res
+
+    @http.route('/tasks', type='http', auth="none", methods=["GET"])
+    @serialize_exception
+    def tasks(self, **kw):
+        res = utils.init_response_data()
+        try:
+            env = request.env
+            tasks = env['project.task'].sudo().search_read()
+            res["data"]["tasks"] = tasks
+        except Exception, e:
+            res["code"] = status.Status.ERROR
+            res["error_info"] = str(e)
+            return res
+        return res
