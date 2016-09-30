@@ -1,0 +1,18 @@
+<openerp>
+ <data>
+
+    <!--定义表单视图-->
+    <record model="ir.ui.view" id="worksheet_project_form_view">
+        <field name="name">项目表单</field>
+        <field name="type">form</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <field name="partner_id"  position="after">
+                <field name="worksheet" string="工作日报" />
+            </field>
+        </field>
+    </record>
+
+ </data>
+</openerp>

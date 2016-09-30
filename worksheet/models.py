@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
 
-from openerp import models, fields, api
+from openerp.osv import osv,fields
+from openerp import tools, api
 
-# class worksheet(models.Model):
-#     _name = 'worksheet.worksheet'
+class project(osv.osv):
+    _name = "project.project"
+    _inherit = "project.project"
 
-#     name = fields.Char()
+    _columns = {
+        "worksheet":fields.boolean("工作日报"),
+    }

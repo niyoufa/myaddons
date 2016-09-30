@@ -46,16 +46,22 @@ def serialize_exception(f):
     return wrap
 
 class WorkController(openerp.http.Controller):
-    @http.route('/works', type='http', auth="none", methods=["GET"])
+    @http.route('/worksheet/works', type='http', auth="none", methods=["GET"])
     @serialize_exception
     def works(self, **kw):
         res = utils.init_response_data()
         try:
             env = request.env
+            domain = [("worksheet", "=", True)]
+            projects = env['project.project'].sudo().search_read(domain)
+            task_ids = []
+            for project in projects:
+                task_ids.extend(project.get("task_ids",[]))
+
             curr_time = str(datetime.datetime.now()).split(" ")[0] 
             start_time = curr_time + " " + "00:00:00.000"
             end_time = curr_time + " " + "23:59:59.999"
-            domain = ["&",("create_date",">",start_time),("create_date","<",end_time)]
+            domain = [("create_date",">",start_time),("create_date","<",end_time),("task_id","in",task_ids)]
             works = env['project.task.work'].sudo().search_read(domain)
             res["data"]["works"] = works
         except Exception, e:
@@ -64,7 +70,7 @@ class WorkController(openerp.http.Controller):
             return res
         return res
 
-    @http.route('/tasks', type='http', auth="none", methods=["GET"])
+    @http.route('/worksheet/tasks', type='http', auth="none", methods=["GET"])
     @serialize_exception
     def tasks(self, **kw):
         res = utils.init_response_data()
@@ -72,6 +78,21 @@ class WorkController(openerp.http.Controller):
             env = request.env
             tasks = env['project.task'].sudo().search_read()
             res["data"]["tasks"] = tasks
+        except Exception, e:
+            res["code"] = status.Status.ERROR
+            res["error_info"] = str(e)
+            return res
+        return res
+
+    @http.route('/worksheet/projects', type='http', auth="none", methods=["GET"])
+    @serialize_exception
+    def projects(self, **kw):
+        res = utils.init_response_data()
+        try:
+            env = request.env
+            domain = []
+            projects = env['project.project'].sudo().search_read(domain)
+            res["data"]["projects"] = projects
         except Exception, e:
             res["code"] = status.Status.ERROR
             res["error_info"] = str(e)
