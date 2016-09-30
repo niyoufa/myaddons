@@ -52,7 +52,11 @@ class WorkController(openerp.http.Controller):
         res = utils.init_response_data()
         try:
             env = request.env
-            works = env['project.task.work'].sudo().search_read()
+            curr_time = str(datetime.datetime.now()).split(" ")[0] 
+            start_time = curr_time + " " + "00:00:00.000"
+            end_time = curr_time + " " + "23:59:59.999"
+            domain = ["&",("create_date",">",start_time),("create_date","<",end_time)]
+            works = env['project.task.work'].sudo().search_read(domain)
             res["data"]["works"] = works
         except Exception, e:
             res["code"] = status.Status.ERROR
